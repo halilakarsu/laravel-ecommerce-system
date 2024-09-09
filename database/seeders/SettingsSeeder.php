@@ -1,14 +1,10 @@
 <?php
-
 namespace Database\Seeders;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use function Laravel\Prompts\table;
-
 class SettingsSeeder extends Seeder
 {
-
     public function run(): void
     {
         DB::table('settings')->insert(

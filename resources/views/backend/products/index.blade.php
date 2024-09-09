@@ -36,12 +36,12 @@
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                           <tbody>
-                                            @foreach($settings as $key)
+                                            @foreach($products as $key)
                                             <tr>
-                                                <th scope="row">{{$key->settings_description}}</th>
-                                                <td>{{$key->settings_value}}</td>
-                                                <td>{{$key->settings_type}}</td>
-                                                <td><a href="{{route('settings.edit',['id'=>$key->id])}}"><i class="ti-pencil-alt"></i></a>
+                                                <th scope="row">{{$key->products_description}}</th>
+                                                <td>{{$key->products_value}}</td>
+                                                <td>{{$key->products_type}}</td>
+                                                <td><a href="{{route('products.edit',['id'=>$key->id])}}"><i class="ti-pencil-alt"></i></a>
                                                     <a href=""><i class=" ml-3 ti-trash"></i></a></td>
                                             </tr>
                                             @endforeach
