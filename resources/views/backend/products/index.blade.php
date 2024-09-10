@@ -1,5 +1,16 @@
 @extends('backend.layouts.index')
 @section('content')
+    <style>
+        .paginate_button {
+            background-color: #f0f0f0;
+            color: #333;
+            margin-top:5px !important;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            margin: 0 2px;
+            border-radius: 5px;
+        }
+    </style>
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
@@ -27,24 +38,51 @@
                 <!-- /# row -->
                 <section id="main-content">
                     <div class="row">
-                           <div class="col-lg-12">
+                        <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-title py-3 text-center bg-primary ">
-                                    <h4 class="text-light">Site Genel Ayar İşlemleri</h4>
-                                </div>
-                                <div class="card-body">
+                                <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
-                                          <tbody>
-                                            @foreach($products as $key)
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <thead>
                                             <tr>
-                                                <th scope="row">{{$key->products_description}}</th>
-                                                <td>{{$key->products_value}}</td>
-                                                <td>{{$key->products_type}}</td>
-                                                <td><a href="{{route('products.edit',['id'=>$key->id])}}"><i class="ti-pencil-alt"></i></a>
-                                                    <a href=""><i class=" ml-3 ti-trash"></i></a></td>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Salary</th>
                                             </tr>
-                                            @endforeach
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Garrett Winters</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>$170,750</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ashton Cox</td>
+                                                <td>Junior Technical Author</td>
+                                                <td>San Francisco</td>
+                                                <td>$86,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cedric Kelly</td>
+                                                <td>Senior Javascript Developer</td>
+                                                <td>Edinburgh</td>
+                                                <td>$433,060</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Airi Satou</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>$162,700</td>
+                                            </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -55,4 +93,4 @@
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
-                 @endsection
+    @endsection

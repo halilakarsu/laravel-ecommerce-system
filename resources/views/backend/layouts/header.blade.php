@@ -27,6 +27,8 @@
     <link href="/backend/assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="/backend/assets/css/lib/helper.css" rel="stylesheet">
     <link href="/backend/assets/css/style.css" rel="stylesheet">
+
+    <link href="/backend/assets/css/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
     <!-- CSS -->
