@@ -12,7 +12,7 @@ class MembersController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.members.index');
     }
 
     /**

@@ -12,7 +12,7 @@ class VideosController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.videos.index');
     }
 
     /**

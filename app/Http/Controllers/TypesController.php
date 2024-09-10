@@ -12,7 +12,7 @@ class TypesController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.types.index');
     }
 
     /**

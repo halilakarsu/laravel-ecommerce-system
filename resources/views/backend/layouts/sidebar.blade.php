@@ -10,25 +10,35 @@
                 <li><a href="{{route('backend.home')}}" ><i class=
                                                                 "ti-home"></i> Anasayfa</a> </li>
                 <li class="label">Ürün İşlemleri</li>
-                <li><a href="{{route('products.index')}}"><i class="ti-calendar"></i> Ürünler </a></li>
+                <li><a href="{{route('products.index')}}"><i class="ti-shopping-cart"></i> Ürünler </a></li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-user"></i>Kategoriler<span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="invoice.html">Kategoriler</a></li>
-                        <li><a href="">Üst Kategoriler</a></li>
-                        <li><a href="">Alt Kategoriler</a></li>
+                        <li><a href="{{route('categories.index')}}">Üst Kategoriler</a></li>
+                        <li><a href="{{route('types.index')}}">Alt Kategoriler</a></li>
                     </ul>
                 </li>
-                <li><a href=""><i class="ti-basketball"></i> Siparişler</a></li>
-                <li><a href=""><i class="ti-user"></i> Müşteriler</a></li>
+                <li><a href="#"><i class="ti-basketball"></i> Siparişler</a></li>
+                <li><a href="#"><i class="ti-user"></i> Müşteriler</a></li>
                  <li class="label">Ayarlar</li>
                 <li><a href="{{route('settings.home')}}"  ><i class="ti-settings"></i> Genel Ayarlar </a>
                                </li>
+                <li><a class="sidebar-sub-toggle"><i class="ti-video-camera"></i>İçerik Ayarları<span
+                            class="sidebar-collapse-icon ti-angle-down"></span></a>
+                    <ul>
+                        <li><a href="{{route('sliders.index')}}">Slider</a></li>
+                        <li><a href="{{route('blogs.index')}}">Blog</a></li>
+                        <li><a href="{{route('videos.index')}}">Videolar</a></li>
+                        <li><a href="{{route('slogans.index')}}">Sloganlar</a></li>
+                        <li><a href="{{route('sss.index')}}">Sık Kullanlar</a></li>
+                        <li><a href="invoice-editable.html">Editable</a></li>
+                    </ul>
+                </li>
 
                 <li><a class="sidebar-sub-toggle"><i class="ti-user"></i>Kullanıcı Ayarları<span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="invoice.html">Basic</a></li>
+                        <li><a href="{{route('members.index')}}">Üyeler</a></li>
                         <li><a href="invoice-editable.html">Editable</a></li>
                     </ul>
                 </li>

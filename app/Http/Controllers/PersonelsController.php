@@ -12,7 +12,7 @@ class PersonelsController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.personels.index');
     }
 
     /**

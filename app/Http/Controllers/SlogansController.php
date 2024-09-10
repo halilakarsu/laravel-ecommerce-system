@@ -12,7 +12,7 @@ class SlogansController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.slogans.index');
     }
 
     /**
