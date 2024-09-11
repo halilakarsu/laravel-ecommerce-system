@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('blog_description');
             $table->string('blog_imagepath');
             $table->string('blog_slug');
-            $table->smallInteger('page_sort');
-            $table->enum('page_status',['1','0'])->default('1');
+            $table->smallInteger('blog_sort');
+            $table->enum('blog_status',['1','0'])->default('1');
         });
     }
 

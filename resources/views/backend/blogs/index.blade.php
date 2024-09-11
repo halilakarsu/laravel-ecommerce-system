@@ -1,16 +1,16 @@
 @extends('backend.layouts.index')
-@section('content')
+@section('css')
+    <!-- DataTables CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <style>
-        .paginate_button {
-            background-color: #f0f0f0;
-            color: #333;
-            margin-top:5px !important;
-            border: 1px solid #ddd;
-            padding: 5px 10px;
-            margin: 0 2px;
-            border-radius: 5px;
-        }
-    </style>
+    .dataTables_filter{
+     float:left !important;
+    }
+        </style>
+@endsection
+@section('content')
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
@@ -18,7 +18,8 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>Blog Sayfası <br><span>Siteye ait blog detayları bu sayfada düzenlenmektedir.</span></h1>
+                                <h1>Blog Sayfası <br><span>Siteye ait blog detayları bu sayfada düzenlenmektedir.</span>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -28,7 +29,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
-                                    <li class="breadcrumb-item active">Ayarlar</li>
+                                    <li class="breadcrumb-item active">Blog</li>
+                                    <a href="{{route('blogs.create')}}" class="btn btn-success btn-sm mt-5">+ Ekle</a>
                                 </ol>
                             </div>
                         </div>
@@ -36,53 +38,31 @@
                     <!-- /# column -->
                 </div>
                 <!-- /# row -->
-                <section id="main-content">
+                <section style="margin-top:-35px" id="main-content" >
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                        <table id="example" class="display" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Salary</th>
+                                                <th>Görsel</th>
+                                                <th>Başlık</th>
+                                                <th>Tarih</th>
+                                                <th>işlemler</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($blogsCreate as $key)
                                             <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>$320,800</td>
+                                                <td>{{$key->blog_imagepath}}</td>
+                                                <td>{{$key->blog_title}}</td>
+                                                <td>{{$key->blog_status}}</td>
+                                                <td width="50%"><a href="{{route('blogs.edit',$key->id)}}" class="btn btn-success btn-sm text-light">Düzenle</a></td>
                                             </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>$170,750</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>$86,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>$433,060</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Airi Satou</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>$162,700</td>
-                                            </tr>
-
+                                            @endforeach
+                                            <!-- Daha fazla veri buraya eklenebilir -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -93,4 +73,42 @@
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
-    @endsection
+ @endsection
+ @section('js')
+
+                        <!-- DataTables JS CDN -->
+ <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+                        <!-- DataTables Buttons JS (for Excel, PDF, etc.) -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+<script>
+ $(document).ready(function() {
+  $('#example').DataTable({
+         language: {
+        searchPlaceholder: 'Arama'
+                   },
+                dom:'frtp',
+             language: {
+
+                    "sSearch": "Ara:",
+                  "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                  "oPaginate": {
+                    "sFirst": "İlk",
+                       "sLast": "Son",
+                        "sNext": "Sonraki",
+                          "sPrevious": "Önceki"
+                           }
+                            },
+
+                    });
+$('.dataTables_filter input').attr('placeholder', 'Arama yapın...');
+
+      });
+    d</script>
+@endsection

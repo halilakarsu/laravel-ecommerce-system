@@ -30,7 +30,7 @@
 
     <link href="/backend/assets/css/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
-
+      @yield('css')
     <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
     <!-- Default theme -->
