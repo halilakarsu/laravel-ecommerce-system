@@ -125,4 +125,16 @@ class BlogsController extends Controller
         }
     }
 
+    public function switch(Request $request, $id){
+        $switchStatus = Blogs::where('id', intval($id))->update([
+            'blog_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
+        ]);
+
+        if($switchStatus){
+            return response()->json(['success' => true, 'message' => "İşlem Başarılı"]);
+        } else {
+            return response()->json(['error' => false, 'message' => "İşlem Başarısız"]);
+        }
+    }
+
 }

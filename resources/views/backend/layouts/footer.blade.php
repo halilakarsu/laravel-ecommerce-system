@@ -37,7 +37,6 @@
 <script src="/backend/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
 <script src="/backend/assets/js/lib/toastr/toastr.min.js"></script>
 <script src="/backend/assets/js/lib/toastr/toastr.init.js"></script>
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 <!-- scripit init-->
 @yield('js')
 @if(session()->has('success'))

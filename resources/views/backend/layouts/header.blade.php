@@ -30,13 +30,7 @@
     <link href="/backend/assets/css/style.css" rel="stylesheet">
     <link href="/backend/assets/css/lib/toastr/toastr.min.css" rel="stylesheet">
     <link href="/backend/assets/css/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
       @yield('css')
     <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
@@ -48,7 +42,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
 </head>
 <body>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
 @include('backend.layouts.sidebar')
 
 <div class="header">

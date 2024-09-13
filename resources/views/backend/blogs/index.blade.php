@@ -1,14 +1,11 @@
 @extends('backend.layouts.index')
 @section('css')
-    <!-- DataTables CSS CDN -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <style>
-    .dataTables_filter{
-     float:left !important;
-    }
-        </style>
+     <link rel="stylesheet" href="/backend/assets/css/custom.css">
+
 @endsection
 @section('content')
     <div class="content-wrap">
@@ -30,7 +27,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
                                     <li class="breadcrumb-item active">Blog</li>
-                                    <a href="{{route('blogs.create')}}" class="btn btn-success btn-sm mt-5">+ Ekle</a>
+                                    <a href="{{route('blogs.create')}}" class="btn btn-success mini mt-5"><i class="fa fa fa-plus-circle"></i><small> Ekle</small></a>
                                 </ol>
                             </div>
                         </div>
@@ -49,8 +46,8 @@
                                             <tr>
                                                 <th>Görsel</th>
                                                 <th>Başlık</th>
-                                                <th>Tarih</th>
-                                                <th>işlemler</th>
+                                                <th>Durum</th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -58,11 +55,18 @@
                                             <tr>
                                                 <td><img width="100px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
                                                 <td>{{$key->blog_title}}</td>
-                                                <td>{{$key->blog_status}}</td>
-                                                <td>
-                                                    <a title="Düzenle" class="button btn-success btn-sm" href="{{route('blogs.edit',$key->id)}}"><span  class="ti-pencil-alt"></span></a>
-                                                    <a title="Sil" data-id="{{$key->id}}" class="button btn-danger btn-sm " href="#"><span class="ti-trash"></span></a>
+                                                <td>  <div class="form-check form-switch align-content-center">
+
+                                                                   <label class="custom-switch">
+                                                                <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->blog_status==1 ? "checked": ""}}>
+                                                                <span class="custom-switch-slider"></span>
+                                                            </label>
+                                                    </div>
                                                 </td>
+                                                <td>
+                                                    <a title="Düzenle" class="button btn-success btn mini" href="{{route('blogs.edit',$key->id)}}">  <i class="fa fa-edit"></i></a>
+                                                    <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini" ><i  class="fa fa-trash-o"></i></a>
+                                                  </td>
                                             </tr>
                                             @endforeach
                                             <!-- Daha fazla veri buraya eklenebilir -->
@@ -118,8 +122,9 @@
                          if(response){
                              toastr.success('Silme işlemi başarılı', 'Başarılı');
                              $row.remove(); // Tablo satırını DOM'dan kaldır
-                         } else
+                         } else {
                              toastr.error('Silme işlemi başarısız', 'Hata');
+                         }
                      }
                  })
              },
@@ -127,6 +132,19 @@
                  alertify.error('Silme işlemi iptal edildi.');
              })
      });
+
+     $(document).on('click', '.custom-switch-input', function() {
+         var itemId = $(this).data('id');
+         var switchStatus  = $(this).is(':checked') ? '1' : '0';
+
+         $.ajax({
+             type: "POST",
+             url: '/blogs/switch/' + itemId,
+             data: {sts: switchStatus}
+         });
+     });
+
  });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
