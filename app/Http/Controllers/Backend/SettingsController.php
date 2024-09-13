@@ -15,6 +15,10 @@ class SettingsController extends Controller
         $editSettings=Settings::where('id',$id)->first();
         return view('backend.settings.edit',compact('editSettings'));
     }
+    public function test()
+    {
+        return view('backend.settings.test');
+    }
 
     public function update(Request $request, $id){
           if($request->hasFile('settings_value')){

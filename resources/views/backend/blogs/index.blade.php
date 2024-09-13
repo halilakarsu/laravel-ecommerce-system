@@ -56,10 +56,13 @@
                                             <tbody>
                                             @foreach($blogsCreate as $key)
                                             <tr>
-                                                <td>{{$key->blog_imagepath}}</td>
+                                                <td><img width="100px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
                                                 <td>{{$key->blog_title}}</td>
                                                 <td>{{$key->blog_status}}</td>
-                                                <td width="50%"><a href="{{route('blogs.edit',$key->id)}}" class="btn btn-success btn-sm text-light">Düzenle</a></td>
+                                                <td>
+                                                    <a title="Düzenle" class="button btn-success btn-sm" href="{{route('blogs.edit',$key->id)}}"><span  class="ti-pencil-alt"></span></a>
+                                                    <a title="Sil" data-id="{{$key->id}}" class="button btn-danger btn-sm " href="#"><span class="ti-trash"></span></a>
+                                                </td>
                                             </tr>
                                             @endforeach
                                             <!-- Daha fazla veri buraya eklenebilir -->
@@ -75,20 +78,16 @@
                     <!-- /# row -->
  @endsection
  @section('js')
-
-                        <!-- DataTables JS CDN -->
  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
-                        <!-- DataTables Buttons JS (for Excel, PDF, etc.) -->
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
-
 <script>
+ $('.dataTables_filter input').attr('placeholder', 'Arama yapın...');
  $(document).ready(function() {
+     $.ajaxSetup(
+         {
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             }
+         });
   $('#example').DataTable({
          language: {
         searchPlaceholder: 'Arama'
@@ -107,8 +106,27 @@
                             },
 
                     });
-$('.dataTables_filter input').attr('placeholder', 'Arama yapın...');
-
-      });
-    d</script>
+ $(document).on('click', '.btn-danger', function() {
+     var blogId = $(this).data('id'); // Tıklanan butondan blog ID'yi al
+     var $row = $(this).closest('tr'); // Silinen blogun satırını seç
+         alertify.confirm('Lütfen Silme İşlemini Onaylayın','Bu işlem bir daha geri alınmayacaktır',
+             function () {
+                 $.ajax({
+                     type:"DELETE",
+                     url: '/blogs/' + blogId,  // DELETE isteği için URL
+                     success:function(response){
+                         if(response){
+                             toastr.success('Silme işlemi başarılı', 'Başarılı');
+                             $row.remove(); // Tablo satırını DOM'dan kaldır
+                         } else
+                             toastr.error('Silme işlemi başarısız', 'Hata');
+                     }
+                 })
+             },
+             function(){
+                 alertify.error('Silme işlemi iptal edildi.');
+             })
+     });
+ });
+</script>
 @endsection

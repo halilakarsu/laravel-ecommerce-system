@@ -1,4 +1,5 @@
 @extends('backend.layouts.index')
+
 @section('content')
     <div class="content-wrap">
         <div class="main">
@@ -45,24 +46,28 @@
                                             <div class="card-body">
                                                 <div class="horizontal-form">
                                                     <form action="{{route('blogs.update',$blogsEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                                                        @csrf
+                                                        @csrf  @method('put')
                                                          <div class="form-group">
                                                              <div class="col-sm-12">
-                                                                 @method('put')
+                                                                 <label class="text-dark"><b>Yüklü Görsel</b></label><br>
+                                                                 <img width="150px" height="150px" src="/backend/images/blogs/{{$blogsEdit->blog_imagepath}}"  >
+                                                             </div>
+                                                             <div class="col-sm-12">
+                                                                 <label class="text-dark"><b>Yeni Görsel</b></label>
+                                                                 <input  type="file" name="blog_imagepath" value="{{$blogsEdit->blog_imagepath}}" class="form-control" >
+                                                             </div>
+                                                             <div class="col-sm-12">
+
                                                                  <label class="text-dark"><b>Başlık</b></label>
-                                                                <input  type="text" name="blog_title" value="{{$blogsEdit->blog_title}}" class="form-control" >
-                                                                   </div>
-                                                             <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Görsel</b></label>
-                                                                 <input  type="text" name="blog_imagepath" value="{{$blogsEdit->blog_imagepath}}" class="form-control" >
+                                                                 <input  type="text" name="blog_title" value="{{$blogsEdit->blog_title}}" class="form-control" >
                                                              </div>
-                                                             <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Sıra</b></label>
-                                                                 <input  type="text" name="blog_sort" value="{{$blogsEdit->blog_sort}}" class="form-control">
-                                                             </div>
+                                                             <input  name="oldFile" value="{{$blogsEdit->blog_imagepath}}">
                                                              <div class="col-sm-12">
                                                                  <label class="text-dark"><b>Durum</b></label>
-                                                                 <input  type="text" name="blog_status" value="{{$blogsEdit->blog_status}}" class="form-control"  >
+                                                                 <select class="form-control"  name="blog_status" >
+                                                                     <option value="0" {{$blogsEdit->blog_status==0 ? "selected": ""}} >Pasif</option>
+                                                                     <option value="1" {{$blogsEdit->blog_status==1 ? "selected": ""}} >Aktif</option>
+                                                                 </select>
                                                              </div>
                                                              <div class="col-sm-12">
                                                                  <label class="text-dark"><b>Açıklama</b></label>

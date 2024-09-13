@@ -1,23 +1,24 @@
 <?php
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\SettingsController;
+
+use App\Http\Controllers\Backend\BlogsController;
 use App\Http\Controllers\Backend\ProductsController;
-use App\Http\Controllers\BlogsController;
-use App\Http\Controllers\SlidersController;
+use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\TypesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\MembersController;
-use App\Http\Controllers\PersonelsController;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\VideosController;
-use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\SlogansController;
-use App\Http\Controllers\PagesControoler;
-use App\Http\Controllers\SSSController;
-use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\MenusController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\PagesControoler;
+use App\Http\Controllers\PersonelsController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\SlidersController;
+use App\Http\Controllers\SlogansController;
+use App\Http\Controllers\SSSController;
+use App\Http\Controllers\TypesController;
+use App\Http\Controllers\VideosController;
+use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Route;
 
 Route::view('/','backend.home.index')->name('backend.home');
 Route::get('/settings',[SettingsController::class,'index'])->name('settings.home');

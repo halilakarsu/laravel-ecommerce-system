@@ -48,33 +48,34 @@
                                                         @csrf
                                                          <div class="form-group">
                                                              <div class="col-sm-12">
+                                                                 <label class="text-dark"><b>Görsel</b></label>
+                                                                 <input  type="file" name="blog_imagepath" value="" class="form-control"  >
+                                                             </div>
+                                                             <div class="col-sm-12">
                                                                  <label class="text-dark"><b>Başlık</b></label>
                                                                 <input  type="text" name="blog_title" value="" class="form-control" placeholder="Lütfen blog başlığı giriniz." >
                                                                    </div>
                                                              <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Görsel</b></label>
-                                                                 <input  type="text" name="blog_imagepath" value="" class="form-control" placeholder="Lütfen blog başlığı giriniz." >
-                                                             </div>
-                                                             <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Sıra</b></label>
-                                                                 <input  type="text" name="blog_sort" value="" class="form-control" placeholder="Lütfen blog başlığı giriniz." >
-                                                             </div>
-                                                             <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Durum</b></label>
-                                                                 <input  type="text" name="blog_status" value="" class="form-control" placeholder="Lütfen blog başlığı giriniz." >
-                                                             </div>
-                                                             <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Açıklama</b></label>
-                                                                 <input  type="text" name="blog_description" value="" class="form-control" placeholder="Lütfen blog başlığı giriniz." >
-                                                             </div>
-                                                             <div class="col-sm-12">
                                                                  <label class="text-dark"><b>Seo Link</b></label>
                                                                  <input  type="text" name="blog_slug" value="" class="form-control" placeholder="Lütfen blog başlığı giriniz." >
                                                              </div>
+                                                             <div class="col-sm-12">
+                                                                 <label class="text-dark"><b>Durum</b></label>
+                                                                 <select name="blog_status" class="form-control" >
+                                                                     <option value="0">Pasif</option>
+                                                                     <option value="1">Aktif</option>
+                                                                 </select>
+
+                                                             </div>
+                                                             <div class="col-sm-12">
+                                                                 <label class="text-dark"><b> Blog Detayı</b></label>
+                                                                 <textarea  type="text" name="blog_description" class="form-control">Lütfen blog başlığı giriniz.</textarea>
+                                                             </div>
+
                                                         </div>
                                                         <div  align="right" class="box-footer">
                                                             <div class="col-md-6 ">
-                                                                <button type="submit" class="btn btn-success btn-block">Ekle</button>
+                                                                <button type="submit" class="btn btn-success btn-block"> + Ekle</button>
                                                             </div>
                                                         </div>
                                                     </form>

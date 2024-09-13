@@ -23,12 +23,9 @@
 <script src="/backend/assets/js/lib/bootstrap.min.js"></script>
 <script src="/backend/assets/js/scripts.js"></script>
 <!-- bootstrap -->
-
 <script src="/backend/assets/js/lib/calendar-2/moment.latest.min.js"></script>
 <script src="/backend/assets/js/lib/calendar-2/pignose.calendar.min.js"></script>
 <script src="/backend/assets/js/lib/calendar-2/pignose.init.js"></script>
-
-
 <script src="/backend/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
 <script src="/backend/assets/js/lib/weather/weather-init.js"></script>
 <script src="/backend/assets/js/lib/circle-progress/circle-progress.min.js"></script>
@@ -38,13 +35,55 @@
 <script src="/backend/assets/js/lib/sparklinechart/sparkline.init.js"></script>
 <script src="/backend/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
 <script src="/backend/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+<script src="/backend/assets/js/lib/toastr/toastr.min.js"></script>
+<script src="/backend/assets/js/lib/toastr/toastr.init.js"></script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 <!-- scripit init-->
 @yield('js')
 @if(session()->has('success'))
 <script>
-alert('İşlem Başarılı');
+    toastr.success('{{session()->get('success.message')}}','{{session()->get('success.title')}}',{
+        timeOut: 5000,
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    })
 </script>
 @endif
+                @if(session()->has('error'))
+                    <script>
+                        toastr.error('Sanırım bir hata oluştu ','İşlem Başarısız',{
+                            timeOut: 5000,
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut",
+                            "tapToDismiss": false
+                        })
+                    </script>
+                    @endif
 </body>
 
 </html>
