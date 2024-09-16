@@ -14,8 +14,33 @@ class BlogsController extends Controller
     {
         return view('backend.blogs.create');
     }
-    public function sortable(){
-        return view('backend.blogs.test');
+    public function sortable(Request $request)
+    {
+        // Gelen veriyi al
+        $items = $request->input('item');
+
+        // Başarı durumunu kontrol etmek için bir flag oluşturun
+        $success = true;
+
+        // Verileri güncelle
+        foreach ($items as $key => $value) {
+            $blog = Blogs::find(intval($value));
+
+            if ($blog) {
+                $blog->blog_sort = intval($key);
+                // Güncellemeyi yap
+                if (!$blog->save()) {
+                    // Eğer güncelleme başarısızsa flag'i false yap
+                    $success = false;
+                }
+            } else {
+                // Eğer blog bulunamazsa flag'i false yap
+                $success = false;
+            }
+        }
+
+        // İşlem sonucunu döndür
+        echo $success ? 1 : 0;
     }
     public function store(Request $request)
     {

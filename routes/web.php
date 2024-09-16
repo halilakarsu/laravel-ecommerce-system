@@ -26,9 +26,10 @@ Route::get('/settings/edit/{id}',[SettingsController::class,'edit'])->name('sett
 Route::post('/settings/update/{id}',[SettingsController::class,'update'])->name('settings.update');
 Route::resource('products', ProductsController::class);
 Route::resource('blogs', BlogsController::class);
-Route::get('deneme/test',[BlogsController::class,'sortable']);
-Route::post('blogs/switch/{id}',[BlogsController::class,'switch']);
 Route::post('blogs/sortable',[BlogsController::class,'sortable'])->name('blogs.sortable');
+
+Route::post('blogs/switch/{id}',[BlogsController::class,'switch']);
+
 Route::resource('sliders',SlidersController::class);
 Route::resource('categories',CategoriesController::class);
 Route::resource('types',TypesController::class);
@@ -40,7 +41,7 @@ Route::resource('sss',SSSController::class);
 Route::resource('personels',PersonelsController::class);
 Route::resource('members',MembersController::class);
 Route::resource('customers',CustomersController::class);
-Route::resource('pages',PagesControoler::class);
+Route::resource('pages',PagesControler::class);
 Route::resource('orders',OrdersController::class);
 Route::resource('menus',MenusController::class);
 Route::resource('messages',MessagesController::class);

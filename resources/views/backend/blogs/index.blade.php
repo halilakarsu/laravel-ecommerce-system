@@ -54,8 +54,8 @@
                                             </thead>
                                             <tbody id="sortable">
                                             @foreach($blogsCreate as $key)
-                                            <tr>
-                                                <td id="item-{{$key->id}}"><img width="70px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
+                                            <tr id="item-{{$key->id}}">
+                                                <td class="sortable" ><img width="70px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
                                                 <td>{{$key->blog_title}}</td>
                                                 <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                                    <label class="custom-switch">
@@ -155,10 +155,33 @@
              data: {sts: switchStatus}
          });
      });
-     $( function() {
-         $( "#sortable" ).sortable();
-     } );
+
      });
+ $(document).ready(function(){
+
+     $('#sortable').sortable({
+         revert:true,
+         handle:".sortable",
+         stop:function (event,ui){
+             var data= $(this).sortable('serialize');
+             console.log("Gönderilen veriler:", data); // Verileri burada kontrol edebilirsiniz
+
+             $.ajax({
+                 type:"POST",
+                 data:data,
+                 url:"{{route('blogs.sortable')}}",
+                 success:function (msg){
+                     if(msg) {
+                         alertify.success("islem basarili");
+                     } else {
+                         alertify.error("islem basarisiz.");
+                     }
+                 }
+             });
+         }
+     });
+     $('#sortable').disableSelection();
+ });
 
 </script>
 
