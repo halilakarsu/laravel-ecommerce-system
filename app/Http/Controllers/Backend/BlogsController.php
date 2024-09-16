@@ -14,6 +14,9 @@ class BlogsController extends Controller
     {
         return view('backend.blogs.create');
     }
+    public function sortable(){
+        return view('backend.blogs.test');
+    }
     public function store(Request $request)
     {
          if($request->hasFile('blog_imagepath')){

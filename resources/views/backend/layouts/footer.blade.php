@@ -19,7 +19,7 @@
 <script src="/backend/assets/js/lib/menubar/sidebar.js"></script>
 <script src="/backend/assets/js/lib/preloader/pace.min.js"></script>
 <!-- sidebar -->
-
+ <script src="/backend/assets/js/lib/jquery-ui/jquery-ui.min.js"></script>
 <script src="/backend/assets/js/lib/bootstrap.min.js"></script>
 <script src="/backend/assets/js/scripts.js"></script>
 <!-- bootstrap -->

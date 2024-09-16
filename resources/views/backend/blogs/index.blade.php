@@ -1,3 +1,4 @@
+
 @extends('backend.layouts.index')
 @section('css')
 
@@ -8,6 +9,7 @@
 
 @endsection
 @section('content')
+
     <div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
@@ -46,33 +48,39 @@
                                             <tr>
                                                 <th>Görsel</th>
                                                 <th>Başlık</th>
-                                                <th>Durum</th>
-                                                <th></th>
+                                                <th >Durum</th>
+                                                <th class="text-right">İşlemler</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="sortable">
                                             @foreach($blogsCreate as $key)
                                             <tr>
-                                                <td><img width="100px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
+                                                <td id="item-{{$key->id}}"><img width="70px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
                                                 <td>{{$key->blog_title}}</td>
-                                                <td>  <div class="form-check form-switch align-content-center">
-
+                                                <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                                    <label class="custom-switch">
                                                                 <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->blog_status==1 ? "checked": ""}}>
                                                                 <span class="custom-switch-slider"></span>
                                                             </label>
                                                     </div>
-                                                </td>
+                                                   </td>
                                                 <td>
                                                     <a title="Düzenle" class="button btn-success btn mini" href="{{route('blogs.edit',$key->id)}}">  <i class="fa fa-edit"></i></a>
-                                                    <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini" ><i  class="fa fa-trash-o"></i></a>
+                                                    <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
                                                   </td>
                                             </tr>
                                             @endforeach
                                             <!-- Daha fazla veri buraya eklenebilir -->
+
+
+
+
+
+
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /# card -->
@@ -82,8 +90,12 @@
                     <!-- /# row -->
  @endsection
  @section('js')
+
  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+
 <script>
+
  $('.dataTables_filter input').attr('placeholder', 'Arama yapın...');
  $(document).ready(function() {
      $.ajaxSetup(
@@ -143,8 +155,13 @@
              data: {sts: switchStatus}
          });
      });
+     $( function() {
+         $( "#sortable" ).sortable();
+     } );
+     });
 
- });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 @endsection
