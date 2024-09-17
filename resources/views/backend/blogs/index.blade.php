@@ -53,7 +53,7 @@
                                             </tr>
                                             </thead>
                                             <tbody id="sortable">
-                                            @foreach($blogsCreate as $key)
+                                            @foreach($blogs as $key)
                                             <tr id="item-{{$key->id}}">
                                                 <td class="sortable" ><img width="70px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
                                                 <td>{{$key->blog_title}}</td>
