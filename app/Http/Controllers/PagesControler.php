@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pages;
 use Illuminate\Http\Request;
 
-class PagesControoler extends Controller
+class PagesControler extends Controller
 {
     /**
      * Display a listing of the resource.

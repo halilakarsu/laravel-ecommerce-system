@@ -159,14 +159,13 @@
      });
  $(document).ready(function(){
 
+
      $('#sortable').sortable({
          revert:true,
          handle:".sortable",
          stop:function (event,ui){
              var data= $(this).sortable('serialize');
-             console.log("Gönderilen veriler:", data); // Verileri burada kontrol edebilirsiniz
-
-             $.ajax({
+               $.ajax({
                  type:"POST",
                  data:data,
                  url:"{{route('blogs.sortable')}}",

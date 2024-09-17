@@ -9,7 +9,7 @@ use App\Http\Controllers\MembersController;
 use App\Http\Controllers\MenusController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\OrdersController;
-use App\Http\Controllers\PagesControoler;
+use App\Http\Controllers\PagesControler;
 use App\Http\Controllers\PersonelsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SlidersController;
@@ -21,15 +21,19 @@ use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/','backend.home.index')->name('backend.home');
-Route::get('/settings',[SettingsController::class,'index'])->name('settings.home');
-Route::get('/settings/edit/{id}',[SettingsController::class,'edit'])->name('settings.edit');
-Route::post('/settings/update/{id}',[SettingsController::class,'update'])->name('settings.update');
+
+Route::prefix('settings')->group(function(){
+Route::get('',[SettingsController::class,'index'])->name('settings.home');
+Route::get('edit/{id}',[SettingsController::class,'edit'])->name('settings.edit');
+Route::post('update/{id}',[SettingsController::class,'update'])->name('settings.update');
+
+});
 Route::resource('products', ProductsController::class);
+Route::post('products/sortable',[ProductsController::class,'sortable'])->name('products.sortable');
+Route::post('products/switch/{id}',[ProductsController::class,'switch']);
 Route::resource('blogs', BlogsController::class);
 Route::post('blogs/sortable',[BlogsController::class,'sortable'])->name('blogs.sortable');
-
 Route::post('blogs/switch/{id}',[BlogsController::class,'switch']);
-
 Route::resource('sliders',SlidersController::class);
 Route::resource('categories',CategoriesController::class);
 Route::resource('types',TypesController::class);

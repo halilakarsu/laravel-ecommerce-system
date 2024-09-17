@@ -7,40 +7,22 @@ use Illuminate\Support\Str;
 class BlogsController extends Controller
 {
      public function index()
-    { $blogsCreate=Blogs::all();
-        return view('backend.blogs.index',compact('blogsCreate'));
+    { $blogs=Blogs::all()->sortBy('blog_sort');
+        return view('backend.blogs.index',compact('blogs'));
     }
     public function create()
     {
         return view('backend.blogs.create');
     }
-    public function sortable(Request $request)
+    public function sortable()
     {
-        // Gelen veriyi al
-        $items = $request->input('item');
-
-        // Başarı durumunu kontrol etmek için bir flag oluşturun
-        $success = true;
-
-        // Verileri güncelle
-        foreach ($items as $key => $value) {
-            $blog = Blogs::find(intval($value));
-
-            if ($blog) {
-                $blog->blog_sort = intval($key);
-                // Güncellemeyi yap
-                if (!$blog->save()) {
-                    // Eğer güncelleme başarısızsa flag'i false yap
-                    $success = false;
-                }
-            } else {
-                // Eğer blog bulunamazsa flag'i false yap
-                $success = false;
-            }
-        }
-
-        // İşlem sonucunu döndür
-        echo $success ? 1 : 0;
+         //print_r($_POST['item']);
+        foreach ($_POST['item'] as $key=>$value) {
+            $blogs = Blogs::find(intval($value));
+            $blogs->blog_sort=intval($key);
+            $blogs->save();
+      }
+        echo true;
     }
     public function store(Request $request)
     {

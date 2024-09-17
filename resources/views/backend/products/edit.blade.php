@@ -1,4 +1,5 @@
 @extends('backend.layouts.index')
+
 @section('content')
     <div class="content-wrap">
         <div class="main">
@@ -7,7 +8,7 @@
                     <div class="col-lg-6 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>E-ticaret sistemi ayar güncelleme işlemleri<br></h1>
+                                <h1>Ürün Düzenleme<br></h1>
                             </div>
                         </div>
                     </div>
@@ -17,8 +18,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
-                                    <li class="breadcrumb-item"><a href="{{route('settings.home')}}">Ayarlar</a></li>
-                                    <li class="breadcrumb-item">{{$editSettings->settings_description}} Güncelle</li>
+                                    <li class="breadcrumb-item"><a href="{{route('products.index')}}">Ürün</a></li>
+                                    <li class="breadcrumb-item"> Ürün Düzenle</li>
                                 </ol>
                             </div>
                         </div>
@@ -28,44 +29,60 @@
                 <!-- /# row -->
                 <section id="main-content">
                     <div class="row">
-                           <div class="col-lg-12">
+                        <div class="col-lg-12">
                             <div class="card">
-                                   <div class="card-body">
+                                <div class="card-body">
                                     <div class="table-responsive">
                                         <div class="card">
-                                            <div class="card-title">
-                                                <h4>{{$editSettings->settings_description}} Güncelle</h4>
 
-                                            </div>
                                             @if($errors->any())
-                                             @foreach($errors->all() as $error)
+                                                @foreach($errors->all() as $error)
                                                     <script>
                                                         alertify.error('{{$error}}');
                                                     </script>
-                                                 @endforeach
+                                                @endforeach
 
                                             @endif
                                             <div class="card-body">
                                                 <div class="horizontal-form">
-                                                    <form action="{{route('settings.update',['id'=>$editSettings->id])}}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                         <div class="form-group">
-                                                                  <div class="col-sm-12">
-                                                            @if($editSettings->settings_type=="file")
-                                                                          <h2 class="py-3">Yüklü Resim</h2><br>
-                                                                <img class="my-3"  width="150px" src="/backend/images/settings/{{$editSettings->settings_value}}">
-                                                                      <br>
-                                                                <input type="file" name="settings_value" value="{{$editSettings->settings_value}}" class="form-control" >
-                                                             @endif
-                                                             @if($editSettings->settings_type=='text')
-                                                                 <input type="text" name="settings_value" value="{{$editSettings->settings_value}}" class="form-control" >
-                                                             @endif
-                                                             @if($editSettings->settings_type=='textarea')
-                                                                 <textarea  class="form-control" type="text" name="settings_value">{{$editSettings->settings_value}}" </textarea>
-                                                             @endif
+                                                    <form action="{{route('products.update',$productsEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                                        @csrf  @method('put')
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-1">
+                                                                    <img width="80px" height="80px" src="/backend/images/products/{{$productsEdit->product_imagepath}}"  >
+                                                                </div>
+                                                                <div class="col-sm-11">
+                                                                    <label class="text-dark"><b>Görseli Değiştir</b></label>
+                                                                    <input  type="file" name="product_imagepath" value="{{$productsEdit->product_imagepath}}" class="form-control" >
+                                                                </div>
                                                             </div>
+                                                            <div class="col-sm-12">
+
+                                                                <label class="text-dark"><b>Başlık</b></label>
+                                                                <input  type="text" name="product_title" value="{{$productsEdit->product_title}}" class="form-control" >
+                                                            </div>
+                                                            <input type="hidden"  name="oldFile" value="{{$productsEdit->product_imagepath}}">
+                                                            <div class="row">
+                                                                <div class="col-sm-10">
+                                                                    <label class="text-dark"><b>Seo Link</b></label>
+                                                                    <input  type="text" name="product_slug" value="{{$productsEdit->product_slug}}" class="form-control"  >
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <label class="text-dark"><b>Durum</b></label>
+                                                                    <select class="form-control"  name="product_status" >
+                                                                        <option value="0" {{$productsEdit->product_status==0 ? "selected": ""}} >Pasif</option>
+                                                                        <option value="1" {{$productsEdit->product_status==1 ? "selected": ""}} >Aktif</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <label class="text-dark"><b>Açıklama</b></label>
+                                                                <textarea id="editor"  type="text" name="product_description">{{$productsEdit->product_description}}</textarea>
+                                                            </div>
+
                                                         </div>
-                                                        <div  align="right" class="box-footer">
+                                                        <div  class="box-footer">
                                                             <div class="col-md-6 ">
                                                                 <button type="submit" class="btn btn-success btn-block">Güncelle</button>
                                                             </div>
@@ -82,9 +99,9 @@
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
-                 @endsection
-                    <script src="/backend/assets/dist/toast/toasty.min.js"></script>
-                    <script>
-                        var toast = new Toasty();
-                        toast.info("Here is some information!");
-                    </script>
+                    @endsection
+                    @section('js')
+                        <script>
+                            ClassicEditor.create( document.querySelector( '#editor' ));
+                        </script>
+@endsection
