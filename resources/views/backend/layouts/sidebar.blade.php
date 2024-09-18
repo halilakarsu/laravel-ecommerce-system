@@ -30,8 +30,8 @@
                         <li><a href="{{route('blogs.index')}}">Blog</a></li>
                         <li><a href="{{route('videos.index')}}">Videolar</a></li>
                         <li><a href="{{route('slogans.index')}}">Sloganlar</a></li>
-                        <li><a href="{{route('sss.index')}}">Sık Kullanlar</a></li>
-                        <li><a href="invoice-editable.html">Editable</a></li>
+                        <li><a href="{{route('sss.index')}}">Sık Sorulan Sorular</a></li>
+
                     </ul>
                 </li>
 

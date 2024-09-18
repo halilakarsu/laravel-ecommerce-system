@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blogs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-class BlogsController extends Controller
+class MenusController extends Controller
 {
     public function index()
     { $blogs=Blogs::all()->sortBy('blog_sort');

@@ -15,13 +15,12 @@ use App\Http\Controllers\Backend\SlidersController;
 use App\Http\Controllers\Backend\SlogansController;
 use App\Http\Controllers\Backend\SSSController;
 use App\Http\Controllers\Backend\TypesController;
-use App\Http\Controllers\CustomersController;
-use App\Http\Controllers\VideosController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Backend\CustomersController;
+use App\Http\Controllers\Backend\VideosController;
+use App\Http\Controllers\Backend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/','backend.home.index')->name('backend.home');
-
 Route::prefix('settings')->group(function(){
 Route::get('',[SettingsController::class,'index'])->name('settings.home');
 Route::get('edit/{id}',[SettingsController::class,'edit'])->name('settings.edit');

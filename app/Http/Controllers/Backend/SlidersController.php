@@ -1,13 +1,14 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Sliders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 class SlidersController extends Controller
 {
     public function index()
-    { $sliders=Slider::all()->sortBy('slider_sort');
+    { $sliders=Sliders::all()->sortBy('slider_sort');
         return view('backend.sliders.index',compact('sliders'));
     }
     public function create()
@@ -18,7 +19,7 @@ class SlidersController extends Controller
     {
         //print_r($_POST['item']);
         foreach ($_POST['item'] as $key=>$value) {
-            $sliders = Slider::find(intval($value));
+            $sliders = Sliders::find(intval($value));
             $sliders->slider_sort=intval($key);
             $sliders->save();
         }
@@ -29,22 +30,17 @@ class SlidersController extends Controller
         if($request->hasFile('slider_imagepath')){
             $request->validate([
                 'slider_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'slider_title'=>'required',
-                'slider_description'=>'required',
+                'slider_small_title'=>'required',
+                'slider_big_title'=>'required',
                 'slider_status'=>'required'
             ]);
             $fileName=rand(1,99999).''.$request->slider_imagepath->getClientOriginalName();
             $request->slider_imagepath->move(public_path('backend/images/sliders/'),$fileName);
-            if($request->slider_slug>3){
-                $sliderSlug=Str::slug($request->slider_slug);
-            }else {
-                $sliderSlug=Str::slug($request->slider_title);
-            }
-            $slidersStore=new Slider();
-            $slidersStore->slider_title=$request->slider_title;
+            $slidersStore=new Sliders();
+            $slidersStore->slider_big_title=$request->slider_big_title;
+            $slidersStore->slider_small_title=$request->slider_small_title;
             $slidersStore->slider_description=$request->slider_description;
             $slidersStore->slider_status=$request->slider_status;
-            $slidersStore->slider_slug=$sliderSlug;
             $slidersStore->slider_imagepath=$fileName;
             $slidersStore->save();
 
@@ -59,26 +55,19 @@ class SlidersController extends Controller
     }
 
 
-    public function show(Slider $sliders)
-    {
-        //
-    }
 
     public function edit($id)
     {
-        $slidersEdit=Slider::where('id',$id)->first();
+        $slidersEdit=Sliders::where('id',$id)->first();
         return view('backend.sliders.edit',compact('slidersEdit'));
     }
 
     public function update(Request $request, $id)
-    {     if($request->slider_slug>3){
-        $sliderSlug=Str::slug($request->slider_slug);
-    }else {
-        $sliderSlug=Str::slug($request->slider_title);
-    }
-        if($request->hasFile('slider_imagepath')){
+    {       if($request->hasFile('slider_imagepath')){
             $request->validate([
                 'slider_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'slider_big_title'=>'required',
+                'slider_small_title'=>'required',
                 'slider_title'=>'required',
                 'slider_description'=>'required',
                 'slider_status'=>'required'
@@ -86,10 +75,11 @@ class SlidersController extends Controller
             $fileName=rand(1,99999).'-'.$request->slider_imagepath->getClientOriginalName();
             $request->slider_imagepath->move(public_path('backend/images/sliders/'),$fileName);
 
-            $slidersUpdate=Slider::where('id',$id)->update([
+            $slidersUpdate=Sliders::where('id',$id)->update([
                 'slider_imagepath'=>$fileName,
                 'slider_title'=>$request->slider_title,
-                'slider_slug'=>$sliderSlug,
+                'slider_big_title'=>$request->slider_big_title,
+                'slider_small_title'=>$request->slider_small_title,
                 'slider_description'=>$request->slider_description,
                 'slider_status'=>$request->slider_status
 
@@ -100,13 +90,14 @@ class SlidersController extends Controller
             }
         }else{
             $request->validate([
-                'slider_title'=>'required',
+                'slider_big_title'=>'required',
                 'slider_description'=>'required',
+                'slider_small_title'=>'required',
                 'slider_status'=>'required'
             ]);
-            $slidersUpdate=Slider::where('id',$id)->update([
-                'slider_title'=>$request->slider_title,
-                'slider_slug'=>$sliderSlug,
+            $slidersUpdate=Sliders::where('id',$id)->update([
+                'slider_big_title'=>$request->slider_big_title,
+                'slider_small_title'=>$request->slider_small_title,
                 'slider_description'=>$request->slider_description,
                 'slider_status'=>$request->slider_status,
             ]);
@@ -122,7 +113,7 @@ class SlidersController extends Controller
     }
     public function destroy($id)
     {
-        $sliderDelete = Slider::find(intval($id));
+        $sliderDelete = Sliders::find(intval($id));
         if ($sliderDelete) {
             $oldFile=$sliderDelete->slider_imagepath;
             if($oldFile && file_exists(public_path('backend/images/sliders/'.$oldFile))) {
@@ -136,7 +127,7 @@ class SlidersController extends Controller
     }
 
     public function switch(Request $request, $id){
-        $switchStatus = Slider::where('id', intval($id))->update([
+        $switchStatus = Sliders::where('id', intval($id))->update([
             'slider_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
         ]);
 
