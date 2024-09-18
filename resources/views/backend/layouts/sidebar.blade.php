@@ -18,8 +18,8 @@
                         <li><a href="{{route('types.index')}}">Alt Kategoriler</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="ti-basketball"></i> Siparişler</a></li>
-                <li><a href="#"><i class="ti-user"></i> Müşteriler</a></li>
+                <li><a href="{{route('orders.index')}}"><i class="ti-basketball"></i> Siparişler</a></li>
+                <li><a href="{{route('customers.index')}}"><i class="ti-user"></i> Müşteriler</a></li>
                  <li class="label">Ayarlar</li>
                 <li><a href="{{route('settings.home')}}"  ><i class="ti-settings"></i> Genel Ayarlar </a>
                                </li>

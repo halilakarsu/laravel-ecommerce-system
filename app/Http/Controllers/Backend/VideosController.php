@@ -1,120 +1,120 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
-use App\Models\Blogs;
+use App\Models\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class VideosController extends Controller
 {
      public function index()
-    { $blogs=Blogs::all()->sortBy('blog_sort');
-        return view('backend.blogs.index',compact('blogs'));
+    { $videos=Videos::all()->sortBy('video_sort');
+        return view('backend.videos.index',compact('videos'));
     }
     public function create()
     {
-        return view('backend.blogs.create');
+        return view('backend.videos.create');
     }
     public function sortable()
     {
          //print_r($_POST['item']);
         foreach ($_POST['item'] as $key=>$value) {
-            $blogs = Blogs::find(intval($value));
-            $blogs->blog_sort=intval($key);
-            $blogs->save();
+            $videos = Videos::find(intval($value));
+            $videos->video_sort=intval($key);
+            $videos->save();
       }
         echo true;
     }
     public function store(Request $request)
     {
-         if($request->hasFile('blog_imagepath')){
+         if($request->hasFile('video_imagepath')){
               $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'video_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'video_title'=>'required',
+                'video_description'=>'required',
+                'video_status'=>'required'
               ]);
-              $fileName=rand(1,99999).''.$request->blog_imagepath->getClientOriginalName();
-              $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
-             if($request->blog_slug>3){
-                 $blogSlug=Str::slug($request->blog_slug);
+              $fileName=rand(1,99999).''.$request->video_imagepath->getClientOriginalName();
+              $request->video_imagepath->move(public_path('backend/images/videos/'),$fileName);
+             if($request->video_slug>3){
+                 $videoSlug=Str::slug($request->video_slug);
              }else {
-                 $blogSlug=Str::slug($request->blog_title);
+                 $videoSlug=Str::slug($request->video_title);
              }
-              $blogsStore=new Blogs();
-              $blogsStore->blog_title=$request->blog_title;
-              $blogsStore->blog_description=$request->blog_description;
-              $blogsStore->blog_status=$request->blog_status;
-              $blogsStore->blog_slug=$blogSlug;
-              $blogsStore->blog_imagepath=$fileName;
-              $blogsStore->save();
+              $videosStore=new Videos();
+              $videosStore->video_title=$request->video_title;
+              $videosStore->video_description=$request->video_description;
+              $videosStore->video_status=$request->video_status;
+              $videosStore->video_slug=$videoSlug;
+              $videosStore->video_imagepath=$fileName;
+              $videosStore->save();
 
           }else{
               return back()->with('error','Sanırım bir hata oluştu');
           }
-         if($blogsStore) {
-             return redirect(route('blogs.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
+         if($videosStore) {
+             return redirect(route('videos.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
          }else {
              return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
          }
     }
 
 
-    public function show(Blogs $blogs)
+    public function show(Videos $videos)
     {
         //
     }
 
     public function edit($id)
     {
-        $blogsEdit=Blogs::where('id',$id)->first();
-        return view('backend.blogs.edit',compact('blogsEdit'));
+        $videosEdit=Videos::where('id',$id)->first();
+        return view('backend.videos.edit',compact('videosEdit'));
     }
 
     public function update(Request $request, $id)
-    {     if($request->blog_slug>3){
-        $blogSlug=Str::slug($request->blog_slug);
+    {     if($request->video_slug>3){
+        $videoSlug=Str::slug($request->video_slug);
     }else {
-        $blogSlug=Str::slug($request->blog_title);
+        $videoSlug=Str::slug($request->video_title);
     }
-        if($request->hasFile('blog_imagepath')){
+        if($request->hasFile('video_imagepath')){
             $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'video_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'video_title'=>'required',
+                'video_description'=>'required',
+                'video_status'=>'required'
             ]);
-            $fileName=rand(1,99999).'-'.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
+            $fileName=rand(1,99999).'-'.$request->video_imagepath->getClientOriginalName();
+            $request->video_imagepath->move(public_path('backend/images/videos/'),$fileName);
 
-            $blogsUpdate=Blogs::where('id',$id)->update([
-                'blog_imagepath'=>$fileName,
-                'blog_title'=>$request->blog_title,
-                 'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status
+            $videosUpdate=Videos::where('id',$id)->update([
+                'video_imagepath'=>$fileName,
+                'video_title'=>$request->video_title,
+                 'video_slug'=>$videoSlug,
+                'video_description'=>$request->video_description,
+                'video_status'=>$request->video_status
 
             ]);
-            $path='backend/images/blogs/'.$request->oldFile;
+            $path='backend/images/videos/'.$request->oldFile;
             if(file_exists($path)) {
                 @unlink(public_path($path));
             }
         }else{
             $request->validate([
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'video_title'=>'required',
+                'video_description'=>'required',
+                'video_status'=>'required'
             ]);
-            $blogsUpdate=Blogs::where('id',$id)->update([
-                'blog_title'=>$request->blog_title,
-                'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status,
+            $videosUpdate=Videos::where('id',$id)->update([
+                'video_title'=>$request->video_title,
+                'video_slug'=>$videoSlug,
+                'video_description'=>$request->video_description,
+                'video_status'=>$request->video_status,
                ]);
         }
 
 
-        if($blogsUpdate){
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
+        if($videosUpdate){
+            return redirect(route('videos.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
         }else {
             return back()->with('error', ['title'=>'Güncelleme','message'=>'Başarısız.']);
@@ -122,13 +122,13 @@ class VideosController extends Controller
     }
     public function destroy($id)
     {
-        $blogDelete = Blogs::find(intval($id));
-        if ($blogDelete) {
-            $oldFile=$blogDelete->blog_imagepath;
-            if($oldFile && file_exists(public_path('backend/images/blogs/'.$oldFile))) {
-                unlink(public_path('backend/images/blogs/' . $oldFile));
+        $videoDelete = Videos::find(intval($id));
+        if ($videoDelete) {
+            $oldFile=$videoDelete->video_imagepath;
+            if($oldFile && file_exists(public_path('backend/images/videos/'.$oldFile))) {
+                unlink(public_path('backend/images/videos/' . $oldFile));
             }
-            $blogDelete->delete();
+            $videoDelete->delete();
             return response()->json(['success' => true]);
         } else {
             return response()->json(['error' => false]);
@@ -136,8 +136,8 @@ class VideosController extends Controller
     }
 
     public function switch(Request $request, $id){
-        $switchStatus = Blogs::where('id', intval($id))->update([
-            'blog_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
+        $switchStatus = Videos::where('id', intval($id))->update([
+            'video_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
         ]);
 
         if($switchStatus){

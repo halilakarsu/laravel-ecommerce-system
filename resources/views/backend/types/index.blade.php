@@ -46,8 +46,8 @@
                                         <table id="example" class="display" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Görsel</th>
-                                                <th>Başlık</th>
+                                                <th>Alt Kategori</th>
+                                                <th>Üst Kategori</th>
                                                 <th>Durum</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>
@@ -55,11 +55,11 @@
                                             <tbody id="sortable">
                                             @foreach($types as $key)
                                                 <tr id="item-{{$key->id}}">
-                                                    <td class="sortable" ><img width="70px" src="/backend/images/types/{{$key->categori_imagepath}}" alt="{{$key->categori_slug}}"></td>
-                                                    <td>{{$key->categori_title}}</td>
+                                                   <td class="sortable" >{{$key->type_title}}</td>
+                                                    <td class="sortable" >{{$key->categories->categori_title}}</td>
                                                     <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                             <label class="custom-switch">
-                                                                <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->categori_status==1 ? "checked": ""}}>
+                                                                <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->type_status==1 ? "checked": ""}}>
                                                                 <span class="custom-switch-slider"></span>
                                                             </label>
                                                         </div>

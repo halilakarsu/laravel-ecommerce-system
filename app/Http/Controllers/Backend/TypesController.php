@@ -1,18 +1,19 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
+use App\Models\Categories;
 use App\Models\Types;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class TypesController extends Controller
 {
     public function index()
-    { $types=Types::all()->sortBy('type_sort');
+    { $types=Types::with('categories')->get();
         return view('backend.types.index',compact('types'));
     }
     public function create()
-    {
-        return view('backend.types.create');
+    {    $categories=Categories::all();
+        return view('backend.types.create',compact('categories'));
     }
     public function sortable()
     {
@@ -25,94 +26,40 @@ class TypesController extends Controller
         echo true;
     }
     public function store(Request $request)
-    {
-        if($request->hasFile('type_imagepath')){
-            $request->validate([
-                'type_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'type_title'=>'required',
-                'type_description'=>'required',
-                'type_status'=>'required'
+    {            $request->validate([
+                 'type_title'=>'required',
+                 'type_status'=>'required',
+                 'categori_id'=>'required',
             ]);
-            $fileName=rand(1,99999).''.$request->type_imagepath->getClientOriginalName();
-            $request->type_imagepath->move(public_path('backend/images/types/'),$fileName);
-            if($request->type_slug>3){
-                $typeSlug=Str::slug($request->type_slug);
-            }else {
-                $typeSlug=Str::slug($request->type_title);
-            }
             $typesStore=new Types();
             $typesStore->type_title=$request->type_title;
-            $typesStore->type_description=$request->type_description;
+           $typesStore->categori_id=$request->categori_id;
             $typesStore->type_status=$request->type_status;
-            $typesStore->type_slug=$typeSlug;
-            $typesStore->type_imagepath=$fileName;
             $typesStore->save();
-
-        }else{
-            return back()->with('error','Sanırım bir hata oluştu');
-        }
-        if($typesStore) {
+             if($typesStore) {
             return redirect(route('types.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }else {
             return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }
     }
-
-
-    public function show(Types $types)
-    {
-        //
-    }
-
     public function edit($id)
     {
-        $typesEdit=Types::where('id',$id)->first();
-        return view('backend.types.edit',compact('typesEdit'));
+        $typesEdit=Types::with('categories')->where('id',$id)->first();
+        $categories=Categories::all()->sortBy('categori_sort');
+        return view('backend.types.edit',compact('typesEdit','categories'));
     }
 
     public function update(Request $request, $id)
-    {     if($request->type_slug>3){
-        $typeSlug=Str::slug($request->type_slug);
-    }else {
-        $typeSlug=Str::slug($request->type_title);
-    }
-        if($request->hasFile('type_imagepath')){
-            $request->validate([
-                'type_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+    {       $request->validate([
                 'type_title'=>'required',
-                'type_description'=>'required',
-                'type_status'=>'required'
-            ]);
-            $fileName=rand(1,99999).'-'.$request->type_imagepath->getClientOriginalName();
-            $request->type_imagepath->move(public_path('backend/images/types/'),$fileName);
-
-            $typesUpdate=Types::where('id',$id)->update([
-                'type_imagepath'=>$fileName,
-                'type_title'=>$request->type_title,
-                'type_slug'=>$typeSlug,
-                'type_description'=>$request->type_description,
-                'type_status'=>$request->type_status
-
-            ]);
-            $path='backend/images/types/'.$request->oldFile;
-            if(file_exists($path)) {
-                @unlink(public_path($path));
-            }
-        }else{
-            $request->validate([
-                'type_title'=>'required',
-                'type_description'=>'required',
-                'type_status'=>'required'
-            ]);
+                'type_status'=>'required',
+                'categori_id'=>'required'
+                       ]);
             $typesUpdate=Types::where('id',$id)->update([
                 'type_title'=>$request->type_title,
-                'type_slug'=>$typeSlug,
-                'type_description'=>$request->type_description,
                 'type_status'=>$request->type_status,
+                'categori_id'=>$request->categori_id
             ]);
-        }
-
-
         if($typesUpdate){
             return redirect(route('types.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
@@ -124,10 +71,6 @@ class TypesController extends Controller
     {
         $typeDelete = Types::find(intval($id));
         if ($typeDelete) {
-            $oldFile=$typeDelete->type_imagepath;
-            if($oldFile && file_exists(public_path('backend/images/types/'.$oldFile))) {
-                unlink(public_path('backend/images/types/' . $oldFile));
-            }
             $typeDelete->delete();
             return response()->json(['success' => true]);
         } else {

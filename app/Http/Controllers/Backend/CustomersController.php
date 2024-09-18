@@ -1,120 +1,120 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
-use App\Models\Blogs;
+use App\Models\Customers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class CustomersController extends Controller
 {
      public function index()
-    { $blogs=Blogs::all()->sortBy('blog_sort');
-        return view('backend.blogs.index',compact('blogs'));
+    { $customers=Customers::all()->sortBy('customer_sort');
+        return view('backend.customers.index',compact('customers'));
     }
     public function create()
     {
-        return view('backend.blogs.create');
+        return view('backend.customers.create');
     }
     public function sortable()
     {
          //print_r($_POST['item']);
         foreach ($_POST['item'] as $key=>$value) {
-            $blogs = Blogs::find(intval($value));
-            $blogs->blog_sort=intval($key);
-            $blogs->save();
+            $customers = Customers::find(intval($value));
+            $customers->customer_sort=intval($key);
+            $customers->save();
       }
         echo true;
     }
     public function store(Request $request)
     {
-         if($request->hasFile('blog_imagepath')){
+         if($request->hasFile('customer_imagepath')){
               $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'customer_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'customer_title'=>'required',
+                'customer_description'=>'required',
+                'customer_status'=>'required'
               ]);
-              $fileName=rand(1,99999).''.$request->blog_imagepath->getClientOriginalName();
-              $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
-             if($request->blog_slug>3){
-                 $blogSlug=Str::slug($request->blog_slug);
+              $fileName=rand(1,99999).''.$request->customer_imagepath->getClientOriginalName();
+              $request->customer_imagepath->move(public_path('backend/images/customers/'),$fileName);
+             if($request->customer_slug>3){
+                 $customerSlug=Str::slug($request->customer_slug);
              }else {
-                 $blogSlug=Str::slug($request->blog_title);
+                 $customerSlug=Str::slug($request->customer_title);
              }
-              $blogsStore=new Blogs();
-              $blogsStore->blog_title=$request->blog_title;
-              $blogsStore->blog_description=$request->blog_description;
-              $blogsStore->blog_status=$request->blog_status;
-              $blogsStore->blog_slug=$blogSlug;
-              $blogsStore->blog_imagepath=$fileName;
-              $blogsStore->save();
+              $customersStore=new Customers();
+              $customersStore->customer_title=$request->customer_title;
+              $customersStore->customer_description=$request->customer_description;
+              $customersStore->customer_status=$request->customer_status;
+              $customersStore->customer_slug=$customerSlug;
+              $customersStore->customer_imagepath=$fileName;
+              $customersStore->save();
 
           }else{
               return back()->with('error','Sanırım bir hata oluştu');
           }
-         if($blogsStore) {
-             return redirect(route('blogs.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
+         if($customersStore) {
+             return redirect(route('customers.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
          }else {
              return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
          }
     }
 
 
-    public function show(Blogs $blogs)
+    public function show(Customers $customers)
     {
         //
     }
 
     public function edit($id)
     {
-        $blogsEdit=Blogs::where('id',$id)->first();
-        return view('backend.blogs.edit',compact('blogsEdit'));
+        $customersEdit=Customers::where('id',$id)->first();
+        return view('backend.customers.edit',compact('customersEdit'));
     }
 
     public function update(Request $request, $id)
-    {     if($request->blog_slug>3){
-        $blogSlug=Str::slug($request->blog_slug);
+    {     if($request->customer_slug>3){
+        $customerSlug=Str::slug($request->customer_slug);
     }else {
-        $blogSlug=Str::slug($request->blog_title);
+        $customerSlug=Str::slug($request->customer_title);
     }
-        if($request->hasFile('blog_imagepath')){
+        if($request->hasFile('customer_imagepath')){
             $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'customer_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'customer_title'=>'required',
+                'customer_description'=>'required',
+                'customer_status'=>'required'
             ]);
-            $fileName=rand(1,99999).'-'.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
+            $fileName=rand(1,99999).'-'.$request->customer_imagepath->getClientOriginalName();
+            $request->customer_imagepath->move(public_path('backend/images/customers/'),$fileName);
 
-            $blogsUpdate=Blogs::where('id',$id)->update([
-                'blog_imagepath'=>$fileName,
-                'blog_title'=>$request->blog_title,
-                 'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status
+            $customersUpdate=Customers::where('id',$id)->update([
+                'customer_imagepath'=>$fileName,
+                'customer_title'=>$request->customer_title,
+                 'customer_slug'=>$customerSlug,
+                'customer_description'=>$request->customer_description,
+                'customer_status'=>$request->customer_status
 
             ]);
-            $path='backend/images/blogs/'.$request->oldFile;
+            $path='backend/images/customers/'.$request->oldFile;
             if(file_exists($path)) {
                 @unlink(public_path($path));
             }
         }else{
             $request->validate([
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'customer_title'=>'required',
+                'customer_description'=>'required',
+                'customer_status'=>'required'
             ]);
-            $blogsUpdate=Blogs::where('id',$id)->update([
-                'blog_title'=>$request->blog_title,
-                'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status,
+            $customersUpdate=Customers::where('id',$id)->update([
+                'customer_title'=>$request->customer_title,
+                'customer_slug'=>$customerSlug,
+                'customer_description'=>$request->customer_description,
+                'customer_status'=>$request->customer_status,
                ]);
         }
 
 
-        if($blogsUpdate){
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
+        if($customersUpdate){
+            return redirect(route('customers.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
         }else {
             return back()->with('error', ['title'=>'Güncelleme','message'=>'Başarısız.']);
@@ -122,13 +122,13 @@ class CustomersController extends Controller
     }
     public function destroy($id)
     {
-        $blogDelete = Blogs::find(intval($id));
-        if ($blogDelete) {
-            $oldFile=$blogDelete->blog_imagepath;
-            if($oldFile && file_exists(public_path('backend/images/blogs/'.$oldFile))) {
-                unlink(public_path('backend/images/blogs/' . $oldFile));
+        $customerDelete = Customers::find(intval($id));
+        if ($customerDelete) {
+            $oldFile=$customerDelete->customer_imagepath;
+            if($oldFile && file_exists(public_path('backend/images/customers/'.$oldFile))) {
+                unlink(public_path('backend/images/customers/' . $oldFile));
             }
-            $blogDelete->delete();
+            $customerDelete->delete();
             return response()->json(['success' => true]);
         } else {
             return response()->json(['error' => false]);
@@ -136,8 +136,8 @@ class CustomersController extends Controller
     }
 
     public function switch(Request $request, $id){
-        $switchStatus = Blogs::where('id', intval($id))->update([
-            'blog_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
+        $switchStatus = Customers::where('id', intval($id))->update([
+            'customer_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
         ]);
 
         if($switchStatus){

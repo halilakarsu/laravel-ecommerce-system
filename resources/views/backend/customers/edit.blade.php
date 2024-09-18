@@ -8,7 +8,7 @@
                     <div class="col-lg-6 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>ALt Kategori Düzenleme<br></h1>
+                                <h1>Müşteri Düzenleme<br></h1>
                             </div>
                         </div>
                     </div>
@@ -18,8 +18,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
-                                    <li class="breadcrumb-item"><a href="{{route('types.index')}}">Kategori</a></li>
-                                    <li class="breadcrumb-item"> Alt Kategori Düzenle</li>
+                                    <li class="breadcrumb-item"><a href="{{route('customers.index')}}">Blog</a></li>
+                                    <li class="breadcrumb-item"> Müşteri Düzenle</li>
                                 </ol>
                             </div>
                         </div>
@@ -45,36 +45,40 @@
                                             @endif
                                             <div class="card-body">
                                                 <div class="horizontal-form">
-                                                    <form action="{{route('types.update',$typesEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                                    <form action="{{route('customers.update',$customersEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                                         @csrf  @method('put')
                                                          <div class="form-group">
-
+                                                             <div class="row">
+                                                             <div class="col-sm-1">
+                                                                   <img width="80px" height="80px" src="/backend/images/customers/{{$customersEdit->customer_imagepath}}"  >
+                                                             </div>
+                                                             <div class="col-sm-11">
+                                                                 <label class="text-dark"><b>Görseli Değiştir</b></label>
+                                                                 <input  type="file" name="customer_imagepath" value="{{$customersEdit->customer_imagepath}}" class="form-control" >
+                                                             </div>
+                                                             </div>
                                                              <div class="col-sm-12">
 
-                                                                 <label class="text-dark"><b>Alt Kategori</b></label>
-                                                                 <input  type="text" name="type_title" value="{{$typesEdit->type_title}}" class="form-control" >
+                                                                 <label class="text-dark"><b>Başlık</b></label>
+                                                                 <input  type="text" name="customer_title" value="{{$customersEdit->customer_title}}" class="form-control" >
                                                              </div>
-                                                             <input type="hidden"  name="oldFile" value="{{$typesEdit->type_imagepath}}">
+                                                             <input type="hidden"  name="oldFile" value="{{$customersEdit->customer_imagepath}}">
                                                              <div class="row">
                                                              <div class="col-sm-10">
-                                                                 <label class="text-dark"><b>Üst Kategori</b></label>
-                                                                 <select  type="text" name="categori_id" value="{{$typesEdit->type_slug}}" class="form-control">
-                                                                     @foreach($categories  as $row )
-                                                                     <option value="{{$row->id}}" {{$typesEdit->categori_id==$row->id ? "selected" : ""}}>{{$row->categori_title}}</option>
-                                                                     @endforeach
-                                                                 </select>
+                                                                 <label class="text-dark"><b>Seo Link</b></label>
+                                                                 <input  type="text" name="customer_slug" value="{{$customersEdit->customer_slug}}" class="form-control"  >
                                                              </div>
                                                              <div class="col-sm-2">
                                                                  <label class="text-dark"><b>Durum</b></label>
-                                                                 <select class="form-control"  name="type_status" >
-                                                                     <option value="0" {{$typesEdit->type_status==0 ? "selected": ""}} >Pasif</option>
-                                                                     <option value="1" {{$typesEdit->type_status==1 ? "selected": ""}} >Aktif</option>
+                                                                 <select class="form-control"  name="customer_status" >
+                                                                     <option value="0" {{$customersEdit->customer_status==0 ? "selected": ""}} >Pasif</option>
+                                                                     <option value="1" {{$customersEdit->customer_status==1 ? "selected": ""}} >Aktif</option>
                                                                  </select>
                                                              </div>
                                                              </div>
                                                              <div class="col-sm-12">
                                                                  <label class="text-dark"><b>Açıklama</b></label>
-                                                                 <textarea id="editor"  type="text" name="type_description">{{$typesEdit->type_description}}</textarea>
+                                                                 <textarea id="editor"  type="text" name="customer_description">{{$customersEdit->customer_description}}</textarea>
                                                              </div>
 
                                                         </div>
