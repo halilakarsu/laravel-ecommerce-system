@@ -64,11 +64,19 @@
                                                             </div>
                                                             <input type="hidden"  name="oldFile" value="{{$productsEdit->product_imagepath}}">
                                                             <div class="row">
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-6">
                                                                     <label class="text-dark"><b>Seo Link</b></label>
                                                                     <input  type="text" name="product_slug" value="{{$productsEdit->product_slug}}" class="form-control"  >
                                                                 </div>
-                                                                <div class="col-sm-2">
+                                                                <div class="col-sm-3">
+                                                                    <label class="text-dark"><b>Ürün Cinsi</b></label>
+                                                                    <select class="form-control"  name="product_type_id" >
+                                                                        @foreach($types as $key)
+                                                                       <option value="{{$key->id}}" {{$productsEdit->product_type_id==$key->id ? "selected" : ""}}> {{$key->type_title}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-3">
                                                                     <label class="text-dark"><b>Durum</b></label>
                                                                     <select class="form-control"  name="product_status" >
                                                                         <option value="0" {{$productsEdit->product_status==0 ? "selected": ""}} >Pasif</option>

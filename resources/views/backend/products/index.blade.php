@@ -65,6 +65,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
+                                                        <a title="Galeri" class="button btn-success btn mini" href="{{route('products.dropzoneShow',$key->id)}}">  <i class="fa fa-image"></i></a>
                                                         <a title="Düzenle" class="button btn-success btn mini" href="{{route('products.edit',$key->id)}}">  <i class="fa fa-edit"></i></a>
                                                         <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
                                                     </td>
@@ -90,12 +91,8 @@
                     <!-- /# row -->
                     @endsection
                     @section('js')
-
-                        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
-
-                        <script>
-
+                  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+                  <script>
                             $('.dataTables_filter input').attr('placeholder', 'Arama yapın...');
                             $(document).ready(function() {
                                 $.ajaxSetup(
@@ -184,6 +181,7 @@
 
                         </script>
 
+                        </script>
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection
