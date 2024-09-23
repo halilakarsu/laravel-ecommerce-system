@@ -46,16 +46,14 @@
                                         <table id="example" class="display" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Görsel</th>
-                                                <th>Başlık</th>
-                                                <th >Durum</th>
+                                                <th>Müşteri Adı</th>
+                                                <th >Telefonu</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>
                                             </thead>
                                             <tbody id="sortable">
                                             @foreach($customers as $key)
                                                 <tr id="item-{{$key->id}}">
-                                                    <td class="sortable" ><img width="70px" src="/backend/images/customers/{{$key->customer_imagepath}}" alt=""></td>
                                                     <td>{{$key->customer_title}}</td>
                                                     <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                             <label class="custom-switch">

@@ -43,38 +43,51 @@
                                                         @csrf
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-sm-8">
-                                                                    <label class="text-dark"><b>Başlık</b></label>
-                                                                    <input type="text" name="customer_title" value="" class="form-control" placeholder="Lütfen customer başlığı giriniz.">
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>Adı Soyadı</b></label>
+                                                                    <input type="text" name="customer_name" value="" class="form-control" placeholder="Müşterinin adı soyadı">
                                                                 </div>
-                                                            <div class="col-sm-4">
-                                                                <label class="text-dark"><b>Görsel</b></label>
-                                                                <input type="file" name="customer_imagepath" value="" class="form-control">
-                                                            </div>
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>Telefon Numarası</b></label>
+                                                                    <input type="text" name="customer_phone" value="" class="form-control" placeholder="Telefon numarası">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>E-Mail</b></label>
+                                                                    <input type="text" name="customer_email" value="" class="form-control" placeholder="E-mail adresi">
+                                                                </div>
 
                                                             </div>
                                                             <div class="row">
-                                                            <div class="col-sm-8">
-                                                                <label class="text-dark"><b>Seo Link</b></label>
-                                                                <input type="text" name="customer_slug" value="" class="form-control" placeholder="Lütfen customer başlığı giriniz.">
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>Posta Kodu</b></label>
+                                                                    <input type="text" name="customer_postCode" value="" class="form-control" placeholder="Posta kodu giriniz.">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>İl</b></label>
+                                                                    <input type="text" name="customer_il" value="" class="form-control" placeholder="İl adını giriniz.">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>İlçe</b></label>
+                                                                    <input type="text" name="customer_ilce" value="" class="form-control" placeholder="İlçe adını giriniz.">
+                                                                </div>
+
                                                             </div>
-                                                            <div class="col-sm-4">
-                                                                <label class="text-dark"><b>Durum</b></label>
-                                                                <select name="customer_status" class="form-control">
-                                                                    <option value="0">Pasif</option>
-                                                                    <option value="1">Aktif</option>
-                                                                </select>
-                                                            </div>
+                                                            <div class="row">
+                                                                     <div class="col-sm-12">
+                                                                    <label class="text-dark"><b>Adres</b></label>
+                                                                    <input type="text" name="customer_address" value="" class="form-control" placeholder="Müşteriye ait açık adres giriniz.">
+                                                                </div>
+
                                                             </div>
                                                             <div class="col-sm-12">
                                                                 <label class="text-dark"><b>Müşteri Detayı</b></label>
 
-                                                                <textarea  id="editor"  name="customer_description" placeholder="Lütfen customer başlığı giriniz." class="form-control"></textarea>
+                                                                <textarea  id="editor"  name="customer_description" placeholder="Müşteriye ait varsa açıklama girebilirsiniz." class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                         <div  class="box-footer">
-                                                            <div class="col-md-6">
-                                                                <button type="submit" class="btn btn-success btn-block"> Ekle</button>
+                                                            <div class="col-md-12">
+                                                                <button type="submit" class="btn btn-success btn-block"> Müşteriyi Sisteme Ekle</button>
                                                             </div>
                                                         </div>
                                                     </form>

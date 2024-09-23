@@ -25,44 +25,32 @@ class CustomersController extends Controller
         echo true;
     }
     public function store(Request $request)
-    {
-         if($request->hasFile('customer_imagepath')){
-              $request->validate([
-                'customer_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'customer_title'=>'required',
-                'customer_description'=>'required',
-                'customer_status'=>'required'
+    {          $request->validate([
+                'customer_name'=>'required',
+                'customer_email'=>'required',
+                'customer_phone'=>'required',
+                'customer_il'=>'required',
+                'customer_ilce'=>'required'
               ]);
-              $fileName=rand(1,99999).''.$request->customer_imagepath->getClientOriginalName();
-              $request->customer_imagepath->move(public_path('backend/images/customers/'),$fileName);
-             if($request->customer_slug>3){
-                 $customerSlug=Str::slug($request->customer_slug);
-             }else {
-                 $customerSlug=Str::slug($request->customer_title);
-             }
               $customersStore=new Customers();
-              $customersStore->customer_title=$request->customer_title;
+              $customersStore->customer_name=$request->customer_name;
+              $customersStore->customer_phone=$request->customer_phone;
+              $customersStore->customer_email=$request->customer_email;
+              $customersStore->customer_postCode=$request->customer_postCode;
+              $customersStore->customer_il=$request->customer_il;
+              $customersStore->customer_ilce=$request->customer_ilce;
+              $customersStore->customer_address=$request->customer_address;
               $customersStore->customer_description=$request->customer_description;
-              $customersStore->customer_status=$request->customer_status;
-              $customersStore->customer_slug=$customerSlug;
-              $customersStore->customer_imagepath=$fileName;
               $customersStore->save();
 
-          }else{
-              return back()->with('error','Sanırım bir hata oluştu');
-          }
          if($customersStore) {
              return redirect(route('customers.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
          }else {
-             return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
+             return back()->with('error', ['title'=>'Kayıt Ekleme','message'=>'Olmadı.']);
          }
     }
 
 
-    public function show(Customers $customers)
-    {
-        //
-    }
 
     public function edit($id)
     {
