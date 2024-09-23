@@ -33,7 +33,7 @@ Route::post('products/sortable',[ProductsController::class,'sortable'])->name('p
 Route::post('products/switch/{id}',[ProductsController::class,'switch']);
 Route::get('products/galery/{id}',[ProductsController::class,'dropzoneShow'])->name('products.dropzoneShow');
 Route::post('product/dropzone',[ProductsController::class,'dropzone'])->name('products.dropzone');
-Route::post('product/dropzoneUpdate',[ProductsController::class,'dropzoneUpdate'])->name('products.dropzoneUpdate');
+Route::get('product/dropzoneDelete/{id}',[ProductsController::class,'dropzoneDelete'])->name('products.dropzoneDelete');
 $controllers = [
     'blogs' => BlogsController::class,
     'sliders' => SlidersController::class,

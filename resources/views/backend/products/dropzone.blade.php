@@ -1,6 +1,7 @@
 @extends('backend.layouts.index')
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" />
+    <link rel="stylesheet" href="/backend/assets/css/custom.css"
 @endsection
 @section('content')
     <div class="content-wrap">
@@ -42,27 +43,27 @@
                                                 @endforeach
                                             @endif
                                             <div class="card-body">
-                                                <div class="horizontal-form text-center">
-                                                      <h5>{{$productId->product_title}} için galeri fotoğrafları yükle </h5>
+                                                <form action="{{ route('products.dropzone') }}" method="POST" enctype="multipart/form-data" id="image-upload" class="dropzone mt-5">
+                                                    @csrf <br>
+
+                                                    <input name="product_id" type="hidden" value="{{$productId->id}}">
+                                                </form>
+                                                <div class="horizontal-form text-center mt-5">
+                                                    <a class="btn btn-success btn-sm" href="{{route('products.dropzoneShow',$productId->id)}}"> Devam Et </a>
+                                                    <a class="btn btn-danger btn-sm" href="{{route('products.index')}}"> Vazgeç </a>
                                                     <hr>
-                                                    <div class="col-md-12">
+                                                    @if($galery->isNotEmpty())
+                                                    <h5>{{$productId->product_title}}  galeri fotoğrafları </h5>
+                                                    <div class="row">
                                                     @foreach($galery as $row)
-
-                                                        <img src="/backend/images/products/galery/{{$row->file_name}}">
-
+                                                        <div class="col-md-3">
+                                                            <a href="{{ route('products.dropzoneDelete', ['id' => $row->id]) }}" class="btn btn-danger btn-sm">X</a><br>
+                                                        <img width="150px" height="150px" src="/backend/images/products/dropzone/{{$row->file_name}}">
+                                                        </div>
                                                     @endforeach
                                                     </div>
                                                     <hr>
-                                                   <form action="{{ route('products.dropzone') }}" method="POST" enctype="multipart/form-data" id="image-upload" class="dropzone mt-5">
-                                                   @csrf <br>
-                                                       <span class="fa fa-cloud-upload"></span>
-                                                    </form>
-                                                        <form action="{{route('products.dropzoneUpdate')}}" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                            <input name="product_id" type="hidden" value="{{$productId->id}}">
-                                                        <button type="submit" class="btn btn-success mt-3">Ürüne Yükle</button>
-                                                            <button type="submit" class="btn btn-danger mt-3">Vazgeç</button>
-                                                    </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -80,27 +81,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
 
        <script>
-           $(document).ready(function() {
-               // Sayfa yüklendiğinde value değerini değiştir
-               $('.dz-button').val("ddddd");
-           });
            Dropzone.options.myDropzone = {
-            paramName: "file",
-            maxFilesize: 2,
-            maxFiles: 5,
-            dictDefaultMessage:"++Ürüne çoklu resim yükle",
-            url: "{{ route('products.dropzone') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            success: function(file, response) {
-                window.location.href = "{{ url('/') }}"
-            },
-            error: function(file, response) {
-                return false;
-            }
-        }
-    </script>
+               paramName: "file",
+               maxFilesize: 2,
+               maxFiles: 5,
+               dictDefaultMessage: "++Ürüne çoklu resim yükle",
+               url: "{{ route('products.dropzone') }}",
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               acceptedFiles: ".jpeg,.jpg,.png,.gif",
+               success: function (file, response) {
+                   console.log(response); // Yanıtı kontrol et
+                   window.location.reload();
+               },
+               error: function (file, response) {
+                   console.error(response); // Hata durumunu kontrol et
+                   return false;
+               }
+           }
+
+       </script>
 @endsection
 

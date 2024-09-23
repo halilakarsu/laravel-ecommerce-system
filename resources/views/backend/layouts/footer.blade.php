@@ -61,6 +61,11 @@
     })
 </script>
 @endif
+@if(session()->has('deleted'))
+    <script>
+        alertify.error("{{session('deleted')}}");
+    </script>
+@endif
                 @if(session()->has('error'))
                     <script>
                         toastr.error('Sanırım bir hata oluştu ','İşlem Başarısız',{

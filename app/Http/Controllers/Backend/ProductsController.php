@@ -12,9 +12,7 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Products::all()->sortBy('product_sort');
-        //empty product images paths delete
-          // Dropzone::whereNull('product_id')->delete();
-           return view('backend.products.index', compact('products'));
+         return view('backend.products.index', compact('products'));
     }
     public function create()
     {   $types=Types::all()->sortBy('type_sort');
@@ -116,8 +114,6 @@ class ProductsController extends Controller
                 'product_status'=>$request->product_status,
             ]);
         }
-
-
         if($productsUpdate){
             return redirect(route('products.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
@@ -153,56 +149,24 @@ class ProductsController extends Controller
     }
     public function dropzone(Request $request)
     {
-         if (!$request->hasFile('file')) {
-            return response()->json(['error' => 'Dosya Yüklenmedi'], 400);
-        }
         $image = $request->file('file');
-           if (!$image->isValid()) {
-            return response()->json(['error' => 'Dosya Geçerli değil'], 400);
-        }
-        // Dosya adını oluştur
         $imageName = rand(1, 99999).'.'.$image->getClientOriginalName();
         $image->move(public_path('backend/images/products/dropzone'), $imageName);
-        try {
-            $insertDropzone= new Dropzone();
-            $insertDropzone->file_name = $imageName;
-            $insertDropzone->save();
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        $insertDropzone= new Dropzone();
+        $insertDropzone->file_name = $imageName;
+        $insertDropzone->product_id =$request->product_id;
+        $insertDropzone->save();
         }
-        return response()->json(['success' => $imageName]);
+    public function dropzoneDelete($id)
+    {
+        $imageDelete = Dropzone::find(intval($id));
+        $imageDelete->delete();
+        return back()->with('deleted','Fotoğraf silindi');
     }
     public function dropzoneShow($id)
     {   $productId=Products::find($id);
         $galery=Dropzone::where('product_id',$id)->get();
          return view('backend.products.dropzone',compact('productId','galery'));
     }
-    public function dropzoneUpdate(Request $req)
-    {
-        $updated=Dropzone::whereNull('product_id')->update([
-            'product_id'=>$req->product_id
-        ]);
-       if ($updated) {
-           $files = File::files(public_path('backend/images/products/dropzone'));
-           $images = Dropzone::where('product_id', $req->product_id)->get(); // Koleksiyonu al
 
-           foreach ($files as $file) {
-               foreach ($images as $image) { // Her resmi kontrol et
-                   if ($file->getFilename() == $image->file_name) { // Dosya adını kontrol et
-                       $fileName = $image->file_name;
-                       // Dosyanın tam yolunu oluştur
-                       $sourcePath = $file->getPathname(); // Kaynak dosya yolu
-                       $destinationPath = public_path('backend/images/products/galery/'.$fileName); // Hedef dosya yolu
-
-                       // Dosyayı taşı
-                       File::move($sourcePath, $destinationPath);
-                        }
-               }
-           }
-
-           return back()->with('success', 'Records updated successfully.');
-        } else {
-            return redirect()->route('products.index')->with('error', 'No records updated.');
-        }
-    }
 }
