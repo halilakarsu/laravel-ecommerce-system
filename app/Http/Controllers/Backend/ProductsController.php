@@ -11,15 +11,10 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products=Products::all()->sortBy('product_sort');
-        //we have to delete old files and datas
-        $dropzoneDelete=Dropzone::whereNull('product_id')->delete();
-        //all old files are deleting
-        $files = File::files(public_path('backend/images/products/dropzone'));
-        foreach ($files as $file) {
-            File::delete($file);
-        }
-        return view('backend.products.index',compact('products'));
+        $products = Products::all()->sortBy('product_sort');
+        //empty product images paths delete
+          // Dropzone::whereNull('product_id')->delete();
+           return view('backend.products.index', compact('products'));
     }
     public function create()
     {   $types=Types::all()->sortBy('type_sort');
@@ -179,16 +174,33 @@ class ProductsController extends Controller
     }
     public function dropzoneShow($id)
     {   $productId=Products::find($id);
-         return view('backend.products.dropzone',compact('productId'));
+        $galery=Dropzone::where('product_id',$id)->get();
+         return view('backend.products.dropzone',compact('productId','galery'));
     }
     public function dropzoneUpdate(Request $req)
     {
         $updated=Dropzone::whereNull('product_id')->update([
             'product_id'=>$req->product_id
         ]);
+       if ($updated) {
+           $files = File::files(public_path('backend/images/products/dropzone'));
+           $images = Dropzone::where('product_id', $req->product_id)->get(); // Koleksiyonu al
 
-        if ($updated) {
-            return redirect()->route('products.index')->with('success', 'Records updated successfully.');
+           foreach ($files as $file) {
+               foreach ($images as $image) { // Her resmi kontrol et
+                   if ($file->getFilename() == $image->file_name) { // Dosya adını kontrol et
+                       $fileName = $image->file_name;
+                       // Dosyanın tam yolunu oluştur
+                       $sourcePath = $file->getPathname(); // Kaynak dosya yolu
+                       $destinationPath = public_path('backend/images/products/galery/'.$fileName); // Hedef dosya yolu
+
+                       // Dosyayı taşı
+                       File::move($sourcePath, $destinationPath);
+                        }
+               }
+           }
+
+           return back()->with('success', 'Records updated successfully.');
         } else {
             return redirect()->route('products.index')->with('error', 'No records updated.');
         }

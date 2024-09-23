@@ -20,13 +20,13 @@ use App\Http\Controllers\Backend\VideosController;
 use App\Http\Controllers\Backend\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DropzoneController;
-Route::view('/','backend.home.index')->name('backend.home');
+use App\Http\Controllers\Backend\HomeController;
+Route::get('/',[HomeController::class,'index'])->name('backend.home');
 Route::prefix('settings')->group(function(){
 Route::get('',[SettingsController::class,'index'])->name('settings.home');
 Route::get('edit/{id}',[SettingsController::class,'edit'])->name('settings.edit');
 Route::post('update/{id}',[SettingsController::class,'update'])->name('settings.update');
 });
-
 //resource kullanarak otomatik crud yöntemlerinden faydalandık.
 Route::resource('products', ProductsController::class);
 Route::post('products/sortable',[ProductsController::class,'sortable'])->name('products.sortable');
