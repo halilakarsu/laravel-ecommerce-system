@@ -17,7 +17,7 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>Blog Sayfası <br><span>Siteye ait blog detayları bu sayfada düzenlenmektedir.</span>
+                                <h1>Siparişler Sayfası <br><span>Gelen Siparişlerimiz bu sayfada listelenmektedir.</span>
                                 </h1>
                             </div>
                         </div>
@@ -28,8 +28,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
-                                    <li class="breadcrumb-item active">Blog</li>
-                                    <a href="{{route('blogs.create')}}" class="btn btn-success mini mt-5"><i class="fa fa fa-plus-circle"></i><small> Ekle</small></a>
+                                    <li class="breadcrumb-item active">Siparişler</li>
+                                    <a href="{{route('orders.create')}}" class="btn btn-success mini mt-5"><i class="fa fa fa-plus-circle"></i></a>
                                 </ol>
                             </div>
                         </div>
@@ -46,38 +46,32 @@
                                         <table id="example" class="display" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Görsel</th>
-                                                <th>Başlık</th>
-                                                <th >Durum</th>
+                                                <th>Tarih</th>
+                                                <th>Sipariş Veren</th>
+                                                <th>Durum</th>
+                                                <th>Teslim Tarihi</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>
                                             </thead>
                                             <tbody id="sortable">
-                                            @foreach($blogs as $key)
+                                            @foreach($orders as $key)
                                             <tr id="item-{{$key->id}}">
-                                                <td class="sortable" ><img width="70px" src="/backend/images/blogs/{{$key->blog_imagepath}}" alt=""></td>
-                                                <td>{{$key->blog_title}}</td>
+                                                <td class="sortable"></td>
+                                                <td>{{$key->order_title}}</td>
                                                 <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                                    <label class="custom-switch">
-                                                                <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->blog_status==1 ? "checked": ""}}>
+                                                                <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->order_status==1 ? "checked": ""}}>
                                                                 <span class="custom-switch-slider"></span>
                                                             </label>
                                                     </div>
                                                    </td>
                                                 <td>
-                                                    <a title="Düzenle" class="button btn-success btn mini" href="{{route('blogs.edit',$key->id)}}">  <i class="fa fa-edit"></i></a>
+                                                    <a title="Düzenle" class="button btn-success btn mini" href="{{route('orders.edit',$key->id)}}">  <i class="fa fa-edit"></i></a>
                                                     <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
                                                   </td>
                                             </tr>
                                             @endforeach
-                                            <!-- Daha fazla veri buraya eklenebilir -->
-
-
-
-
-
-
-                                            </tbody>
+                                           </tbody>
                                         </table>
                                     </div>
 
@@ -123,13 +117,13 @@
 
                     });
  $(document).on('click', '.btn-danger', function() {
-     var blogId = $(this).data('id'); // Tıklanan butondan blog ID'yi al
-     var $row = $(this).closest('tr'); // Silinen blogun satırını seç
+     var orderId = $(this).data('id'); // Tıklanan butondan order ID'yi al
+     var $row = $(this).closest('tr'); // Silinen orderun satırını seç
          alertify.confirm('Lütfen Silme İşlemini Onaylayın','Bu işlem bir daha geri alınmayacaktır',
              function () {
                  $.ajax({
                      type:"DELETE",
-                     url: '/blogs/' + blogId,  // DELETE isteği için URL
+                     url: '/orders/' + orderId,  // DELETE isteği için URL
                      success:function(response){
                          if(response){
                              toastr.success('Silme işlemi başarılı', 'Başarılı');
@@ -151,7 +145,7 @@
 
          $.ajax({
              type: "POST",
-             url: '/blogs/switch/' + itemId,
+             url: '/orders/switch/' + itemId,
              data: {sts: switchStatus}
          });
      });
@@ -168,7 +162,7 @@
                $.ajax({
                  type:"POST",
                  data:data,
-                 url:"{{route('blogs.sortable')}}",
+                 url:"{{route('orders.sortable')}}",
                  success:function (msg){
                      if(msg) {
                          alertify.success("islem basarili");

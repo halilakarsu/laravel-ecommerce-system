@@ -26,6 +26,7 @@
                 <li><a class="sidebar-sub-toggle"><i class="ti-video-camera"></i>İçerik Ayarları<span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
+                        <li><a href="{{route('menus.index')}}">Menüler</a></li>
                         <li><a href="{{route('sliders.index')}}">Slider</a></li>
                         <li><a href="{{route('blogs.index')}}">Blog</a></li>
                         <li><a href="{{route('videos.index')}}">Videolar</a></li>
@@ -39,8 +40,7 @@
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="{{route('members.index')}}">Üyeler</a></li>
-                        <li><a href="invoice-editable.html">Editable</a></li>
-                    </ul>
+                       </ul>
                 </li>
                 <li><a><i class="ti-close"></i> Çıkış</a></li>
             </ul>

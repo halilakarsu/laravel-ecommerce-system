@@ -47,41 +47,54 @@
                                                 <div class="horizontal-form">
                                                     <form action="{{route('customers.update',$customersEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                                         @csrf  @method('put')
+
                                                          <div class="form-group">
                                                              <div class="row">
-                                                             <div class="col-sm-1">
-                                                                   <img width="80px" height="80px" src="/backend/images/customers/{{$customersEdit->customer_imagepath}}"  >
-                                                             </div>
-                                                             <div class="col-sm-11">
-                                                                 <label class="text-dark"><b>Görseli Değiştir</b></label>
-                                                                 <input  type="file" name="customer_imagepath" value="{{$customersEdit->customer_imagepath}}" class="form-control" >
-                                                             </div>
-                                                             </div>
-                                                             <div class="col-sm-12">
+                                                                 <div class="col-sm-4">
+                                                                     <label class="text-dark"><b>Adı Soyadı</b></label>
+                                                                     <input type="text" name="customer_name"  class="form-control" value="{{$customersEdit->customer_name}}">
+                                                                 </div>
+                                                                 <div class="col-sm-4">
+                                                                     <label class="text-dark"><b>Telefon Numarası</b></label>
+                                                                     <input type="text" name="customer_phone" class="form-control" value="{{$customersEdit->customer_phone}}">
+                                                                 </div>
+                                                                 <div class="col-sm-4">
+                                                                     <label class="text-dark"><b>E-Mail</b></label>
+                                                                     <input type="text" name="customer_email"  class="form-control" value="{{$customersEdit->customer_email}}">
+                                                                 </div>
 
-                                                                 <label class="text-dark"><b>Başlık</b></label>
-                                                                 <input  type="text" name="customer_title" value="{{$customersEdit->customer_title}}" class="form-control" >
                                                              </div>
-                                                             <input type="hidden"  name="oldFile" value="{{$customersEdit->customer_imagepath}}">
                                                              <div class="row">
-                                                             <div class="col-sm-10">
-                                                                 <label class="text-dark"><b>Seo Link</b></label>
-                                                                 <input  type="text" name="customer_slug" value="{{$customersEdit->customer_slug}}" class="form-control"  >
+                                                                 <div class="col-sm-4">
+                                                                     <label class="text-dark"><b>Posta Kodu</b></label>
+                                                                     <input type="text" name="customer_postCode" class="form-control" value="{{$customersEdit->customer_postCode}}">
+                                                                 </div>
+                                                                 <div class="col-sm-4">
+                                                                     <label class="text-dark"><b>İl</b></label>
+                                                                     <input type="text" name="customer_il"  class="form-control" value="{{$customersEdit->customer_il}}">
+                                                                 </div>
+                                                                 <div class="col-sm-4">
+                                                                     <label class="text-dark"><b>İlçe</b></label>
+                                                                     <input type="text" name="customer_ilce"  class="form-control" value="{{$customersEdit->customer_ilce}}">
+                                                                 </div>
+
                                                              </div>
-                                                             <div class="col-sm-2">
-                                                                 <label class="text-dark"><b>Durum</b></label>
-                                                                 <select class="form-control"  name="customer_status" >
-                                                                     <option value="0" {{$customersEdit->customer_status==0 ? "selected": ""}} >Pasif</option>
-                                                                     <option value="1" {{$customersEdit->customer_status==1 ? "selected": ""}} >Aktif</option>
-                                                                 </select>
-                                                             </div>
+                                                             <div class="row">
+                                                                 <div class="col-sm-12">
+                                                                     <label class="text-dark"><b>Adres</b></label>
+                                                                     <input type="text" name="customer_address"  class="form-control" value="{{$customersEdit->customer_description}}">
+                                                                 </div>
+
                                                              </div>
                                                              <div class="col-sm-12">
-                                                                 <label class="text-dark"><b>Açıklama</b></label>
-                                                                 <textarea id="editor"  type="text" name="customer_description">{{$customersEdit->customer_description}}</textarea>
-                                                             </div>
+                                                                 <label class="text-dark"><b>Müşteri Detayı</b></label>
 
-                                                        </div>
+                                                                 <textarea  id="editor"  name="customer_description" class="form-control">{{$customersEdit->customer_description}}</textarea>
+                                                             </div>
+                                                         </div>
+
+
+
                                                         <div  class="box-footer">
                                                             <div class="col-md-6 ">
                                                                 <button type="submit" class="btn btn-success btn-block">Güncelle</button>

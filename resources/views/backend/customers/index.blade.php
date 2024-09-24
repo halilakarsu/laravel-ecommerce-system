@@ -48,13 +48,15 @@
                                             <tr>
                                                 <th>Müşteri Adı</th>
                                                 <th >Telefonu</th>
+                                                <th >Durumu</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>
                                             </thead>
                                             <tbody id="sortable">
                                             @foreach($customers as $key)
                                                 <tr id="item-{{$key->id}}">
-                                                    <td>{{$key->customer_title}}</td>
+                                                    <td>{{$key->customer_name}}</td>
+                                                    <td>{{$key->customer_phone}}</td>
                                                     <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                             <label class="custom-switch">
                                                                 <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->customer_status==1 ? "checked": ""}}>
@@ -68,13 +70,6 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            <!-- Daha fazla veri buraya eklenebilir -->
-
-
-
-
-
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -142,7 +137,6 @@
                                             alertify.error('Silme işlemi iptal edildi.');
                                         })
                                 });
-
                                 $(document).on('click', '.custom-switch-input', function() {
                                     var itemId = $(this).data('id');
                                     var switchStatus  = $(this).is(':checked') ? '1' : '0';
@@ -153,11 +147,8 @@
                                         data: {sts: switchStatus}
                                     });
                                 });
-
                             });
                             $(document).ready(function(){
-
-
                                 $('#sortable').sortable({
                                     revert:true,
                                     handle:".sortable",
@@ -179,9 +170,7 @@
                                 });
                                 $('#sortable').disableSelection();
                             });
-
                         </script>
-
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

@@ -7,20 +7,20 @@ use Illuminate\Support\Str;
 class OrdersController extends Controller
 {
     public function index()
-    { $blogs=Blogs::all()->sortBy('blog_sort');
-        return view('backend.blogs.index',compact('blogs'));
+    { $orders=Blogs::all()->sortBy('blog_sort');
+        return view('backend.orders.index',compact('orders'));
     }
     public function create()
     {
-        return view('backend.blogs.create');
+        return view('backend.orders.create');
     }
     public function sortable()
     {
         //print_r($_POST['item']);
         foreach ($_POST['item'] as $key=>$value) {
-            $blogs = Blogs::find(intval($value));
-            $blogs->blog_sort=intval($key);
-            $blogs->save();
+            $orders = Blogs::find(intval($value));
+            $orders->blog_sort=intval($key);
+            $orders->save();
         }
         echo true;
     }
@@ -34,40 +34,40 @@ class OrdersController extends Controller
                 'blog_status'=>'required'
             ]);
             $fileName=rand(1,99999).''.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
+            $request->blog_imagepath->move(public_path('backend/images/orders/'),$fileName);
             if($request->blog_slug>3){
                 $blogSlug=Str::slug($request->blog_slug);
             }else {
                 $blogSlug=Str::slug($request->blog_title);
             }
-            $blogsStore=new Blogs();
-            $blogsStore->blog_title=$request->blog_title;
-            $blogsStore->blog_description=$request->blog_description;
-            $blogsStore->blog_status=$request->blog_status;
-            $blogsStore->blog_slug=$blogSlug;
-            $blogsStore->blog_imagepath=$fileName;
-            $blogsStore->save();
+            $ordersStore=new Blogs();
+            $ordersStore->blog_title=$request->blog_title;
+            $ordersStore->blog_description=$request->blog_description;
+            $ordersStore->blog_status=$request->blog_status;
+            $ordersStore->blog_slug=$blogSlug;
+            $ordersStore->blog_imagepath=$fileName;
+            $ordersStore->save();
 
         }else{
             return back()->with('error','Sanırım bir hata oluştu');
         }
-        if($blogsStore) {
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
+        if($ordersStore) {
+            return redirect(route('orders.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }else {
             return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }
     }
 
 
-    public function show(Blogs $blogs)
+    public function show(Blogs $orders)
     {
         //
     }
 
     public function edit($id)
     {
-        $blogsEdit=Blogs::where('id',$id)->first();
-        return view('backend.blogs.edit',compact('blogsEdit'));
+        $ordersEdit=Blogs::where('id',$id)->first();
+        return view('backend.orders.edit',compact('ordersEdit'));
     }
 
     public function update(Request $request, $id)
@@ -84,9 +84,9 @@ class OrdersController extends Controller
                 'blog_status'=>'required'
             ]);
             $fileName=rand(1,99999).'-'.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
+            $request->blog_imagepath->move(public_path('backend/images/orders/'),$fileName);
 
-            $blogsUpdate=Blogs::where('id',$id)->update([
+            $ordersUpdate=Blogs::where('id',$id)->update([
                 'blog_imagepath'=>$fileName,
                 'blog_title'=>$request->blog_title,
                 'blog_slug'=>$blogSlug,
@@ -94,7 +94,7 @@ class OrdersController extends Controller
                 'blog_status'=>$request->blog_status
 
             ]);
-            $path='backend/images/blogs/'.$request->oldFile;
+            $path='backend/images/orders/'.$request->oldFile;
             if(file_exists($path)) {
                 @unlink(public_path($path));
             }
@@ -104,7 +104,7 @@ class OrdersController extends Controller
                 'blog_description'=>'required',
                 'blog_status'=>'required'
             ]);
-            $blogsUpdate=Blogs::where('id',$id)->update([
+            $ordersUpdate=Blogs::where('id',$id)->update([
                 'blog_title'=>$request->blog_title,
                 'blog_slug'=>$blogSlug,
                 'blog_description'=>$request->blog_description,
@@ -113,8 +113,8 @@ class OrdersController extends Controller
         }
 
 
-        if($blogsUpdate){
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
+        if($ordersUpdate){
+            return redirect(route('orders.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
         }else {
             return back()->with('error', ['title'=>'Güncelleme','message'=>'Başarısız.']);
@@ -125,8 +125,8 @@ class OrdersController extends Controller
         $blogDelete = Blogs::find(intval($id));
         if ($blogDelete) {
             $oldFile=$blogDelete->blog_imagepath;
-            if($oldFile && file_exists(public_path('backend/images/blogs/'.$oldFile))) {
-                unlink(public_path('backend/images/blogs/' . $oldFile));
+            if($oldFile && file_exists(public_path('backend/images/orders/'.$oldFile))) {
+                unlink(public_path('backend/images/orders/' . $oldFile));
             }
             $blogDelete->delete();
             return response()->json(['success' => true]);

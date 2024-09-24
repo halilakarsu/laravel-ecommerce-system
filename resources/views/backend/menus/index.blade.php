@@ -46,8 +46,8 @@
                                         <table id="example" class="display" style="width:100%">
                                             <thead>
                                             <tr>
-                                                <th>Görsel</th>
-                                                <th>Başlık</th>
+                                                <th>Menü Adı</th>
+                                                <th>Menü Sıra</th>
                                                 <th >Durum</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>
@@ -55,7 +55,7 @@
                                             <tbody id="sortable">
                                             @foreach($menus as $key)
                                             <tr id="item-{{$key->id}}">
-                                                <td class="sortable" ><img width="70px" src="/backend/images/menus/{{$key->menu_imagepath}}" alt=""></td>
+                                                <td class="sortable" ></td>
                                                 <td>{{$key->menu_title}}</td>
                                                 <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                                    <label class="custom-switch">

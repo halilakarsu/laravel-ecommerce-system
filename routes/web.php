@@ -3,7 +3,7 @@
 use App\Http\Controllers\Backend\BlogsController;
 use App\Http\Controllers\Backend\CategoriesController;
 use App\Http\Controllers\Backend\MembersController;
-use App\Http\Controllers\Backend\MenusController;
+use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MessagesController;
 use App\Http\Controllers\Backend\OrdersController;
 use App\Http\Controllers\Backend\PagesControler;
@@ -49,7 +49,7 @@ $controllers = [
     'customers' => CustomersController::class,
     'pages' => PagesControler::class,
     'orders' => OrdersController::class,
-    'menus' => MenusController::class,
+    'menus' => MenuController::class,
     'messages' => MessagesController::class,
 ];
 

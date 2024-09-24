@@ -27,10 +27,7 @@ class CustomersController extends Controller
     public function store(Request $request)
     {          $request->validate([
                 'customer_name'=>'required',
-                'customer_email'=>'required',
-                'customer_phone'=>'required',
-                'customer_il'=>'required',
-                'customer_ilce'=>'required'
+                'customer_phone'=>'required'
               ]);
               $customersStore=new Customers();
               $customersStore->customer_name=$request->customer_name;
@@ -50,58 +47,28 @@ class CustomersController extends Controller
          }
     }
 
-
-
     public function edit($id)
     {
         $customersEdit=Customers::where('id',$id)->first();
         return view('backend.customers.edit',compact('customersEdit'));
     }
 
-    public function update(Request $request, $id)
-    {     if($request->customer_slug>3){
-        $customerSlug=Str::slug($request->customer_slug);
-    }else {
-        $customerSlug=Str::slug($request->customer_title);
-    }
-        if($request->hasFile('customer_imagepath')){
-            $request->validate([
-                'customer_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'customer_title'=>'required',
-                'customer_description'=>'required',
-                'customer_status'=>'required'
-            ]);
-            $fileName=rand(1,99999).'-'.$request->customer_imagepath->getClientOriginalName();
-            $request->customer_imagepath->move(public_path('backend/images/customers/'),$fileName);
-
-            $customersUpdate=Customers::where('id',$id)->update([
-                'customer_imagepath'=>$fileName,
-                'customer_title'=>$request->customer_title,
-                 'customer_slug'=>$customerSlug,
-                'customer_description'=>$request->customer_description,
-                'customer_status'=>$request->customer_status
-
-            ]);
-            $path='backend/images/customers/'.$request->oldFile;
-            if(file_exists($path)) {
-                @unlink(public_path($path));
-            }
-        }else{
-            $request->validate([
-                'customer_title'=>'required',
-                'customer_description'=>'required',
-                'customer_status'=>'required'
+    public function update(Request $request, $id){
+                $request->validate([
+                'customer_name'=>'required',
+                'customer_description'=>'required'
             ]);
             $customersUpdate=Customers::where('id',$id)->update([
-                'customer_title'=>$request->customer_title,
-                'customer_slug'=>$customerSlug,
+                'customer_name'=>$request->customer_name,
+                'customer_phone'=>$request->customer_phone,
+                'customer_email'=>$request->customer_email,
+                'customer_il'=>$request->customer_il,
+                'customer_ilce'=>$request->customer_ilce,
+                'customer_address'=>$request->customer_address,
+                'customer_postCode'=>$request->customer_postCode,
                 'customer_description'=>$request->customer_description,
-                'customer_status'=>$request->customer_status,
-               ]);
-        }
-
-
-        if($customersUpdate){
+            ]);
+            if($customersUpdate){
             return redirect(route('customers.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
         }else {

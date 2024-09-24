@@ -43,27 +43,13 @@
                                                         @csrf
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-sm-8">
-                                                                    <label class="text-dark"><b>Başlık</b></label>
-                                                                    <input type="text" name="menu_title" value="" class="form-control" placeholder="Lütfen menu başlığı giriniz.">
+                                                                <div class="col-sm-6">
+                                                                    <label class="text-dark"><b>Menü Adı</b></label>
+                                                                    <input type="text" name="menu_title" value="" class="form-control" placeholder="Lütfen menü adı giriniz.">
                                                                 </div>
-                                                            <div class="col-sm-4">
-                                                                <label class="text-dark"><b>Görsel</b></label>
-                                                                <input type="file" name="menu_imagepath" value="" class="form-control">
-                                                            </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                            <div class="col-sm-8">
-                                                                <label class="text-dark"><b>Seo Link</b></label>
-                                                                <input type="text" name="menu_slug" value="" class="form-control" placeholder="Lütfen menu başlığı giriniz.">
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <label class="text-dark"><b>Durum</b></label>
-                                                                <select name="menu_status" class="form-control">
-                                                                    <option value="0">Pasif</option>
-                                                                    <option value="1">Aktif</option>
-                                                                </select>
+                                                                <div class="col-sm-6">
+                                                                <label class="text-dark"><b>Link</b></label>
+                                                                <input type="text" name="menu_slug" value="" class="form-control" placeholder="Lütfen menü linki giriniz.">
                                                             </div>
                                                             </div>
                                                             <div class="col-sm-12">
