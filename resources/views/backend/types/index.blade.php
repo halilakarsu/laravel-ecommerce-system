@@ -56,7 +56,7 @@
                                             @foreach($types as $key)
                                                 <tr id="item-{{$key->id}}">
                                                    <td class="sortable" >{{$key->type_title}}</td>
-                                                    <td class="sortable" >{{$key->categories->categori_title}}</td>
+                                                    <td class="sortable" >{{!empty($key->categories->categori_title)}}</td>
                                                     <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                             <label class="custom-switch">
                                                                 <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->type_status==1 ? "checked": ""}}>

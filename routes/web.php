@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Backend\BlogsController;
 use App\Http\Controllers\Backend\CategoriesController;
 use App\Http\Controllers\Backend\MembersController;
@@ -13,13 +12,13 @@ use App\Http\Controllers\Backend\ServicesController;
 use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\Backend\SlidersController;
 use App\Http\Controllers\Backend\SlogansController;
-use App\Http\Controllers\Backend\SSSController;
+use App\Http\Controllers\Backend\QuestionsController;
 use App\Http\Controllers\Backend\TypesController;
 use App\Http\Controllers\Backend\CustomersController;
 use App\Http\Controllers\Backend\VideosController;
 use App\Http\Controllers\Backend\WishlistController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DropzoneController;
+
 use App\Http\Controllers\Backend\HomeController;
 Route::get('/',[HomeController::class,'index'])->name('backend.home');
 Route::prefix('settings')->group(function(){
@@ -43,7 +42,7 @@ $controllers = [
     'videos' => VideosController::class,
     'slogans' => SlogansController::class,
     'services' => ServicesController::class,
-    'sss' => SSSController::class,
+    'questions' => QuestionsController::class,
     'personels' => PersonelsController::class,
     'members' => MembersController::class,
     'customers' => CustomersController::class,

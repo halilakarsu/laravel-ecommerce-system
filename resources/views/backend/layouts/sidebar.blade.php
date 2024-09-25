@@ -34,7 +34,7 @@
                         <li><a href="{{route('blogs.index')}}">Blog</a></li>
                         <li><a href="{{route('videos.index')}}">Videolar</a></li>
                         <li><a href="{{route('slogans.index')}}">Sloganlar</a></li>
-                        <li><a href="{{route('sss.index')}}">Sık Sorulan Sorular</a></li>
+                        <li><a href="{{route('questions.index')}}">Sık Sorulan Sorular</a></li>
                    </ul>
                 </li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-user"></i>Kullanıcı Ayarları<span
