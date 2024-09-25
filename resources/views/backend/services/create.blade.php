@@ -7,7 +7,7 @@
                     <div class="col-lg-6 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>Yeni HizmetEkleme<br></h1>
+                                <h1>Yeni Hizmet Ekleme<br></h1>
                             </div>
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
                                     <li class="breadcrumb-item"><a href="{{route('services.index')}}">Blog</a></li>
-                                    <li class="breadcrumb-item"> HizmetEkle</li>
+                                    <li class="breadcrumb-item"> Hizmet Ekle</li>
                                 </ol>
                             </div>
                         </div>
@@ -43,33 +43,30 @@
                                                         @csrf
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-sm-8">
-                                                                    <label class="text-dark"><b>Başlık</b></label>
-                                                                    <input type="text" name="service_title" value="" class="form-control" placeholder="Lütfen service başlığı giriniz.">
+                                                                <div class="col-sm-6">
+                                                                    <label class="text-dark"><b>Hizmet Adı</b></label>
+                                                                    <input type="text" name="service_name" value="" class="form-control" placeholder="Lütfen hizmet adı giriniz.">
                                                                 </div>
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-3">
                                                                 <label class="text-dark"><b>Görsel</b></label>
                                                                 <input type="file" name="service_imagepath" value="" class="form-control">
                                                             </div>
-
                                                             </div>
                                                             <div class="row">
-                                                            <div class="col-sm-8">
-                                                                <label class="text-dark"><b>Seo Link</b></label>
-                                                                <input type="text" name="service_slug" value="" class="form-control" placeholder="Lütfen service başlığı giriniz.">
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <label class="text-dark"><b>Durum</b></label>
-                                                                <select name="service_status" class="form-control">
-                                                                    <option value="0">Pasif</option>
-                                                                    <option value="1">Aktif</option>
-                                                                </select>
-                                                            </div>
+                                                                <div class="col-sm-6">
+                                                                    <label class="text-dark"><b>Hizmet Başlık</b></label>
+                                                                    <input type="text" name="service_title" value="" class="form-control" placeholder="Lütfen hizmet adı giriniz.">
+                                                                </div>
+                                                                    <div class="col-sm-3">
+                                                                    <label class="text-dark"><b>Seo Link</b></label>
+                                                                    <input type="text" name="service_slug" value="" class="form-control" placeholder="Lütfen hizmet linki giriniz.">
+                                                                </div>
+
                                                             </div>
                                                             <div class="col-sm-12">
                                                                 <label class="text-dark"><b>HizmetDetayı</b></label>
 
-                                                                <textarea  id="editor"  name="service_description" placeholder="Lütfen service başlığı giriniz." class="form-control"></textarea>
+                                                                <textarea  id="editor"  name="service_description" placeholder="Lütfen hizmet detayları giriniz." class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                         <div  class="box-footer">

@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sss', function (Blueprint $table) {
+        Schema::create('dropzone', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('question_title');
-            $table->string('question_description');
-            $table->smallInteger('question_sort')->default(0);
-            $table->enum('question_status',['0','1'])->default('1');
-
+            $table->String('file_name');
+            $table->Integer('product_id');
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sss');
+        Schema::dropIfExists('dropzone');
     }
 };

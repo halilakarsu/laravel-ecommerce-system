@@ -1,120 +1,124 @@
 <?php
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
-use App\Models\Blogs;
+use App\Models\Pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class PagesControler extends Controller
 {
     public function index()
-    { $blogs=Blogs::all()->sortBy('blog_sort');
-        return view('backend.blogs.index',compact('blogs'));
+    { $pages=Pages::all()->sortBy('page_sort');
+        return view('backend.pages.index',compact('pages'));
     }
     public function create()
     {
-        return view('backend.blogs.create');
+        return view('backend.pages.create');
     }
     public function sortable()
     {
         //print_r($_POST['item']);
         foreach ($_POST['item'] as $key=>$value) {
-            $blogs = Blogs::find(intval($value));
-            $blogs->blog_sort=intval($key);
-            $blogs->save();
+            $pages = Pages::find(intval($value));
+            $pages->page_sort=intval($key);
+            $pages->save();
         }
         echo true;
     }
     public function store(Request $request)
     {
-        if($request->hasFile('blog_imagepath')){
+        if($request->hasFile('page_imagepath')){
             $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
+                'page_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'page_title'=>'required',
+                'page_description'=>'required',
+                'page_title1'=>'required',
+                'page_title2'=>'required',
+
             ]);
-            $fileName=rand(1,99999).''.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
-            if($request->blog_slug>3){
-                $blogSlug=Str::slug($request->blog_slug);
+            $fileName=rand(1,99999).''.$request->page_imagepath->getClientOriginalName();
+            $request->page_imagepath->move(public_path('backend/images/pages/'),$fileName);
+            if($request->page_slug>3){
+                $pageSlug=Str::slug($request->page_slug);
             }else {
-                $blogSlug=Str::slug($request->blog_title);
+                $pageSlug=Str::slug($request->page_title);
             }
-            $blogsStore=new Blogs();
-            $blogsStore->blog_title=$request->blog_title;
-            $blogsStore->blog_description=$request->blog_description;
-            $blogsStore->blog_status=$request->blog_status;
-            $blogsStore->blog_slug=$blogSlug;
-            $blogsStore->blog_imagepath=$fileName;
-            $blogsStore->save();
+            $pagesStore=new Pages();
+            $pagesStore->page_title=$request->page_title;
+            $pagesStore->page_description=$request->page_description;
+            $pagesStore->page_title1=$request->page_title1;
+            $pagesStore->page_title2=$request->page_title2;
+            $pagesStore->page_slug=$pageSlug;
+            $pagesStore->page_imagepath=$fileName;
+            $pagesStore->save();
 
         }else{
             return back()->with('error','Sanırım bir hata oluştu');
         }
-        if($blogsStore) {
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
+        if($pagesStore) {
+            return redirect(route('pages.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }else {
             return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }
     }
 
 
-    public function show(Blogs $blogs)
+    public function show(Pages $pages)
     {
         //
     }
 
     public function edit($id)
     {
-        $blogsEdit=Blogs::where('id',$id)->first();
-        return view('backend.blogs.edit',compact('blogsEdit'));
+        $pagesEdit=Pages::where('id',$id)->first();
+        return view('backend.pages.edit',compact('pagesEdit'));
     }
 
     public function update(Request $request, $id)
-    {     if($request->blog_slug>3){
-        $blogSlug=Str::slug($request->blog_slug);
+    {     if($request->page_slug>3){
+        $pageSlug=Str::slug($request->page_slug);
     }else {
-        $blogSlug=Str::slug($request->blog_title);
+        $pageSlug=Str::slug($request->page_title);
     }
-        if($request->hasFile('blog_imagepath')){
+        if($request->hasFile('page_imagepath')){
             $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
-            ]);
-            $fileName=rand(1,99999).'-'.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
+                'page_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'page_title'=>'required',
+                'page_description'=>'required',
+                    ]);
+            $fileName=rand(1,99999).'-'.$request->page_imagepath->getClientOriginalName();
+            $request->page_imagepath->move(public_path('backend/images/pages/'),$fileName);
 
-            $blogsUpdate=Blogs::where('id',$id)->update([
-                'blog_imagepath'=>$fileName,
-                'blog_title'=>$request->blog_title,
-                'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status
+            $pagesUpdate=Pages::where('id',$id)->update([
+                'page_imagepath'=>$fileName,
+                'page_title'=>$request->page_title,
+                'page_slug'=>$pageSlug,
+                'page_description'=>$request->page_description,
+                'page_title1'=>$request->page_title1,
+                 'page_title2'=>$request->page_title2,
 
             ]);
-            $path='backend/images/blogs/'.$request->oldFile;
+            $path='backend/images/pages/'.$request->oldFile;
             if(file_exists($path)) {
                 @unlink(public_path($path));
             }
         }else{
             $request->validate([
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
-            ]);
-            $blogsUpdate=Blogs::where('id',$id)->update([
-                'blog_title'=>$request->blog_title,
-                'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status,
+                'page_title'=>'required',
+                'page_description'=>'required',
+                    ]);
+            $pagesUpdate=Pages::where('id',$id)->update([
+                'page_title'=>$request->page_title,
+                'page_slug'=>$pageSlug,
+                'page_description'=>$request->page_description,
+                'page_title1'=>$request->page_title1,
+                'page_title2'=>$request->page_title2
+
             ]);
         }
 
 
-        if($blogsUpdate){
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
+        if($pagesUpdate){
+            return redirect(route('pages.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
         }else {
             return back()->with('error', ['title'=>'Güncelleme','message'=>'Başarısız.']);
@@ -122,13 +126,13 @@ class PagesControler extends Controller
     }
     public function destroy($id)
     {
-        $blogDelete = Blogs::find(intval($id));
-        if ($blogDelete) {
-            $oldFile=$blogDelete->blog_imagepath;
-            if($oldFile && file_exists(public_path('backend/images/blogs/'.$oldFile))) {
-                unlink(public_path('backend/images/blogs/' . $oldFile));
+        $pageDelete = Pages::find(intval($id));
+        if ($pageDelete) {
+            $oldFile=$pageDelete->page_imagepath;
+            if($oldFile && file_exists(public_path('backend/images/pages/'.$oldFile))) {
+                unlink(public_path('backend/images/pages/' . $oldFile));
             }
-            $blogDelete->delete();
+            $pageDelete->delete();
             return response()->json(['success' => true]);
         } else {
             return response()->json(['error' => false]);
@@ -136,8 +140,8 @@ class PagesControler extends Controller
     }
 
     public function switch(Request $request, $id){
-        $switchStatus = Blogs::where('id', intval($id))->update([
-            'blog_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
+        $switchStatus = Pages::where('id', intval($id))->update([
+            'page_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
         ]);
 
         if($switchStatus){

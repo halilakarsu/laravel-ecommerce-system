@@ -38,9 +38,8 @@
                                           <tbody>
                                             @foreach($settings as $key)
                                             <tr>
-                                                <th scope="row">{{$key->settings_description}}</th>
+                                                <th class="text-right" scope="row"><b>{{$key->settings_description}}:</b></th>
                                                 <td>{{$key->settings_value}}</td>
-                                                <td>{{$key->settings_type}}</td>
                                                 <td><a href="{{route('settings.edit',['id'=>$key->id])}}"><i class="ti-pencil-alt"></i></a>
                                                     <a href=""><i class=" ml-3 ti-trash"></i></a></td>
                                             </tr>

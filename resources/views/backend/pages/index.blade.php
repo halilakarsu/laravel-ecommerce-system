@@ -47,7 +47,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Görsel</th>
-                                                <th>Başlık</th>
+                                                <th>Sayfa Adı</th>
                                                 <th >Durum</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>

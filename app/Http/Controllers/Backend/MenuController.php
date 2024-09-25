@@ -37,7 +37,7 @@ class MenuController extends Controller
             }
             $menusStore=new Menu();
             $menusStore->menu_title=$request->menu_title;
-            $menusStore->menu_slug=$menuSlug;
+           $menusStore->menu_slug=$menuSlug;
             $menusStore->save();
         if($menusStore) {
             return redirect(route('menus.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);

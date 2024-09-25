@@ -57,26 +57,30 @@
                                                                  <input  type="file" name="page_imagepath" value="{{$pagesEdit->page_imagepath}}" class="form-control" >
                                                              </div>
                                                              </div>
-                                                             <div class="col-sm-12">
+                                                             <div class="row">
+                                                             <div class="col-sm-6">
 
                                                                  <label class="text-dark"><b>Başlık</b></label>
                                                                  <input  type="text" name="page_title" value="{{$pagesEdit->page_title}}" class="form-control" >
                                                              </div>
+
                                                              <input type="hidden"  name="oldFile" value="{{$pagesEdit->page_imagepath}}">
-                                                             <div class="row">
-                                                             <div class="col-sm-10">
+
+                                                             <div class="col-sm-6">
                                                                  <label class="text-dark"><b>Seo Link</b></label>
                                                                  <input  type="text" name="page_slug" value="{{$pagesEdit->page_slug}}" class="form-control"  >
                                                              </div>
-                                                             <div class="col-sm-2">
-                                                                 <label class="text-dark"><b>Durum</b></label>
-                                                                 <select class="form-control"  name="page_status" >
-                                                                     <option value="0" {{$pagesEdit->page_status==0 ? "selected": ""}} >Pasif</option>
-                                                                     <option value="1" {{$pagesEdit->page_status==1 ? "selected": ""}} >Aktif</option>
-                                                                 </select>
                                                              </div>
                                                              </div>
                                                              <div class="col-sm-12">
+                                                                 <div class="form-group">
+                                                                     <label class="text-dark mt-2"><b>Başlık 1</b></label>
+                                                                     <input type="text" name="page_title1"  class="form-control  " value="{{$pagesEdit->page_title1}}">
+                                                                     <label class="text-dark mt-2"><b>Başlık 2</b></label>
+
+                                                                     <input type="text" name="page_title2" class="form-control" value="{{$pagesEdit->page_title2}}">
+
+                                                                 </div>
                                                                  <label class="text-dark"><b>Açıklama</b></label>
                                                                  <textarea id="editor"  type="text" name="page_description">{{$pagesEdit->page_description}}</textarea>
                                                              </div>

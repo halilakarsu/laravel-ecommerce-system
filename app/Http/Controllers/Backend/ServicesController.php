@@ -7,114 +7,113 @@ use Illuminate\Support\Str;
 class ServicesController extends Controller
 {
     public function index()
-    { $blogs=Services::all()->sortBy('blog_sort');
-        return view('backend.blogs.index',compact('blogs'));
+    { $services=Services::all()->sortBy('service_sort');
+        return view('backend.services.index',compact('services'));
     }
     public function create()
     {
-        return view('backend.blogs.create');
+        return view('backend.services.create');
     }
     public function sortable()
     {
         //print_r($_POST['item']);
         foreach ($_POST['item'] as $key=>$value) {
-            $blogs = Services::find(intval($value));
-            $blogs->blog_sort=intval($key);
-            $blogs->save();
+            $services = Services::find(intval($value));
+            $services->service_sort=intval($key);
+            $services->save();
         }
         echo true;
     }
     public function store(Request $request)
     {
-        if($request->hasFile('blog_imagepath')){
+        if($request->hasFile('service_imagepath')){
             $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
-            ]);
-            $fileName=rand(1,99999).''.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
-            if($request->blog_slug>3){
-                $blogSlug=Str::slug($request->blog_slug);
+                'service_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'service_title'=>'required',
+                'service_name'=>'required',
+                'service_description'=>'required',
+               ]);
+            $fileName=rand(1,99999).''.$request->service_imagepath->getClientOriginalName();
+            $request->service_imagepath->move(public_path('backend/images/services/'),$fileName);
+            if($request->service_slug>3){
+                $serviceSlug=Str::slug($request->service_slug);
             }else {
-                $blogSlug=Str::slug($request->blog_title);
+                $serviceSlug=Str::slug($request->service_title);
             }
-            $blogsStore=new Services();
-            $blogsStore->blog_title=$request->blog_title;
-            $blogsStore->blog_description=$request->blog_description;
-            $blogsStore->blog_status=$request->blog_status;
-            $blogsStore->blog_slug=$blogSlug;
-            $blogsStore->blog_imagepath=$fileName;
-            $blogsStore->save();
+            $servicesStore=new Services();
+            $servicesStore->service_title=$request->service_title;
+            $servicesStore->service_name=$request->service_name;
+            $servicesStore->service_description=$request->service_description;
+            $servicesStore->service_slug=$serviceSlug;
+            $servicesStore->service_imagepath=$fileName;
+            $servicesStore->save();
 
         }else{
             return back()->with('error','Sanırım bir hata oluştu');
         }
-        if($blogsStore) {
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
+        if($servicesStore) {
+            return redirect(route('services.index'))->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }else {
             return back()->with('success', ['title'=>'Kayıt Ekleme','message'=>'Başarı ile gerçekleşti.']);
         }
     }
 
 
-    public function show(Services $blogs)
+    public function show(Services $services)
     {
         //
     }
 
     public function edit($id)
     {
-        $blogsEdit=Services::where('id',$id)->first();
-        return view('backend.blogs.edit',compact('blogsEdit'));
+        $servicesEdit=Services::where('id',$id)->first();
+        return view('backend.services.edit',compact('servicesEdit'));
     }
 
     public function update(Request $request, $id)
-    {     if($request->blog_slug>3){
-        $blogSlug=Str::slug($request->blog_slug);
+    {     if($request->service_slug>3){
+        $serviceSlug=Str::slug($request->service_slug);
     }else {
-        $blogSlug=Str::slug($request->blog_title);
+        $serviceSlug=Str::slug($request->service_title);
     }
-        if($request->hasFile('blog_imagepath')){
+        if($request->hasFile('service_imagepath')){
             $request->validate([
-                'blog_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
-            ]);
-            $fileName=rand(1,99999).'-'.$request->blog_imagepath->getClientOriginalName();
-            $request->blog_imagepath->move(public_path('backend/images/blogs/'),$fileName);
+                'service_imagepath'=>'required|image|mimes:jpg,jpeg,gif|max:2048',
+                'service_title'=>'required',
+                'service_name'=>'required',
+                'service_description'=>'required',
+                 ]);
+            $fileName=rand(1,99999).'-'.$request->service_imagepath->getClientOriginalName();
+            $request->service_imagepath->move(public_path('backend/images/services/'),$fileName);
 
-            $blogsUpdate=Services::where('id',$id)->update([
-                'blog_imagepath'=>$fileName,
-                'blog_title'=>$request->blog_title,
-                'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status
-
-            ]);
-            $path='backend/images/blogs/'.$request->oldFile;
+            $servicesUpdate=Services::where('id',$id)->update([
+                'service_imagepath'=>$fileName,
+               'service_name'=>$request->service_name,
+                'service_title'=>$request->service_title,
+                'service_slug'=>$serviceSlug,
+                'service_description'=>$request->service_description,
+                  ]);
+            $path='backend/images/services/'.$request->oldFile;
             if(file_exists($path)) {
                 @unlink(public_path($path));
             }
         }else{
             $request->validate([
-                'blog_title'=>'required',
-                'blog_description'=>'required',
-                'blog_status'=>'required'
-            ]);
-            $blogsUpdate=Services::where('id',$id)->update([
-                'blog_title'=>$request->blog_title,
-                'blog_slug'=>$blogSlug,
-                'blog_description'=>$request->blog_description,
-                'blog_status'=>$request->blog_status,
-            ]);
+                'service_title'=>'required',
+                'service_name'=>'required',
+                'service_description'=>'required',
+                   ]);
+            $servicesUpdate=Services::where('id',$id)->update([
+                'service_title'=>$request->service_title,
+                'service_name'=>$request->service_name,
+                'service_slug'=>$serviceSlug,
+                'service_description'=>$request->service_description,
+              ]);
         }
 
 
-        if($blogsUpdate){
-            return redirect(route('blogs.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
+        if($servicesUpdate){
+            return redirect(route('services.index'))->with('success', ['title'=>'Güncelleme','message'=>'Başarı ile gerçekleşti.']);
 
         }else {
             return back()->with('error', ['title'=>'Güncelleme','message'=>'Başarısız.']);
@@ -122,13 +121,13 @@ class ServicesController extends Controller
     }
     public function destroy($id)
     {
-        $blogDelete = Services::find(intval($id));
-        if ($blogDelete) {
-            $oldFile=$blogDelete->blog_imagepath;
-            if($oldFile && file_exists(public_path('backend/images/blogs/'.$oldFile))) {
-                unlink(public_path('backend/images/blogs/' . $oldFile));
+        $serviceDelete = Services::find(intval($id));
+        if ($serviceDelete) {
+            $oldFile=$serviceDelete->service_imagepath;
+            if($oldFile && file_exists(public_path('backend/images/services/'.$oldFile))) {
+                unlink(public_path('backend/images/services/' . $oldFile));
             }
-            $blogDelete->delete();
+            $serviceDelete->delete();
             return response()->json(['success' => true]);
         } else {
             return response()->json(['error' => false]);
@@ -137,7 +136,7 @@ class ServicesController extends Controller
 
     public function switch(Request $request, $id){
         $switchStatus = Services::where('id', intval($id))->update([
-            'blog_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
+            'service_status' => $request->sts // Status bilgisini request üzerinden alıyoruz.
         ]);
 
         if($switchStatus){

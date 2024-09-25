@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('service_name');
             $table->string('service_title');
             $table->string('service_imagepath');
+            $table->string('service_slug');
             $table->text('service_description');
             $table->enum('service_status',['0','1'])->default('1');
             $table->smallInteger('service_sort');

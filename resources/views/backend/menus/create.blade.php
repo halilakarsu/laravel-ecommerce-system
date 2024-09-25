@@ -43,23 +43,22 @@
                                                         @csrf
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-sm-6">
+                                                                <div class="col-sm-4">
                                                                     <label class="text-dark"><b>Menü Adı</b></label>
                                                                     <input type="text" name="menu_title" value="" class="form-control" placeholder="Lütfen menü adı giriniz.">
                                                                 </div>
-                                                                <div class="col-sm-6">
+                                                                <div class="col-sm-4">
                                                                 <label class="text-dark"><b>Link</b></label>
                                                                 <input type="text" name="menu_slug" value="" class="form-control" placeholder="Lütfen menü linki giriniz.">
                                                             </div>
+                                                                <div class="col-sm-4">
+                                                                    <label class="text-dark"><b>Sıra</b></label>
+                                                                    <input type="text" name="menu_sort" value="" class="form-control" placeholder="Lütfen menü sırası giriniz.">
+                                                                </div>
                                                             </div>
-                                                            <div class="col-sm-12">
-                                                                <label class="text-dark"><b>Blog Detayı</b></label>
-
-                                                                <textarea  id="editor"  name="menu_description" placeholder="Lütfen menu başlığı giriniz." class="form-control"></textarea>
-                                                            </div>
-                                                        </div>
+                                                           </div>
                                                         <div  class="box-footer">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <button type="submit" class="btn btn-success btn-block"> Ekle</button>
                                                             </div>
                                                         </div>

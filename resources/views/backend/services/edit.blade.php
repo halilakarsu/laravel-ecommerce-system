@@ -18,7 +18,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
-                                    <li class="breadcrumb-item"><a href="{{route('blogs.index')}}">Hizmet</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('services.index')}}">Hizmet</a></li>
                                     <li class="breadcrumb-item"> Hizmet Düzenle</li>
                                 </ol>
                             </div>
@@ -45,40 +45,37 @@
                                             @endif
                                             <div class="card-body">
                                                 <div class="horizontal-form">
-                                                    <form action="{{route('blogs.update',$blogsEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                                    <form action="{{route('services.update',$servicesEdit->id)}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                                         @csrf  @method('put')
                                                          <div class="form-group">
                                                              <div class="row">
                                                              <div class="col-sm-1">
-                                                                   <img width="80px" height="80px" src="/backend/images/blogs/{{$blogsEdit->service_imagepath}}"  >
+                                                                   <img width="80px" height="80px" src="/backend/images/services/{{$servicesEdit->service_imagepath}}"  >
                                                              </div>
                                                              <div class="col-sm-11">
                                                                  <label class="text-dark"><b>Görseli Değiştir</b></label>
-                                                                 <input  type="file" name="service_imagepath" value="{{$blogsEdit->service_imagepath}}" class="form-control" >
+                                                                 <input  type="file" name="service_imagepath" value="{{$servicesEdit->service_imagepath}}" class="form-control" >
                                                              </div>
                                                              </div>
                                                              <div class="col-sm-12">
-
-                                                                 <label class="text-dark"><b>Başlık</b></label>
-                                                                 <input  type="text" name="service_title" value="{{$blogsEdit->service_title}}" class="form-control" >
+                                                                 <label class="text-dark"><b>Hizmet Adı</b></label>
+                                                                 <input  type="text" name="service_name" value="{{$servicesEdit->service_name}}" class="form-control" >
                                                              </div>
-                                                             <input type="hidden"  name="oldFile" value="{{$blogsEdit->service_imagepath}}">
+                                                             <div class="col-sm-12">
+                                                                 <label class="text-dark"><b>Başlık</b></label>
+                                                                 <input  type="text" name="service_title" value="{{$servicesEdit->service_title}}" class="form-control" >
+                                                             </div>
+                                                             <input type="hidden"  name="oldFile" value="{{$servicesEdit->service_imagepath}}">
                                                              <div class="row">
                                                              <div class="col-sm-10">
                                                                  <label class="text-dark"><b>Seo Link</b></label>
-                                                                 <input  type="text" name="service_slug" value="{{$blogsEdit->service_slug}}" class="form-control"  >
+                                                                 <input  type="text" name="service_slug" value="{{$servicesEdit->service_slug}}" class="form-control"  >
                                                              </div>
-                                                             <div class="col-sm-2">
-                                                                 <label class="text-dark"><b>Durum</b></label>
-                                                                 <select class="form-control"  name="service_status" >
-                                                                     <option value="0" {{$blogsEdit->service_status==0 ? "selected": ""}} >Pasif</option>
-                                                                     <option value="1" {{$blogsEdit->service_status==1 ? "selected": ""}} >Aktif</option>
-                                                                 </select>
-                                                             </div>
+
                                                              </div>
                                                              <div class="col-sm-12">
                                                                  <label class="text-dark"><b>Açıklama</b></label>
-                                                                 <textarea id="editor"  type="text" name="service_description">{{$blogsEdit->service_description}}</textarea>
+                                                                 <textarea id="editor"  type="text" name="service_description">{{$servicesEdit->service_description}}</textarea>
                                                              </div>
 
                                                         </div>

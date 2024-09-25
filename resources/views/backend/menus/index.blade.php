@@ -55,8 +55,8 @@
                                             <tbody id="sortable">
                                             @foreach($menus as $key)
                                             <tr id="item-{{$key->id}}">
-                                                <td class="sortable" ></td>
-                                                <td>{{$key->menu_title}}</td>
+                                                <td class="sortable" >{{$key->menu_title}}</td>
+                                                <td>{{$key->menu_sort}}</td>
                                                 <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                                    <label class="custom-switch">
                                                                 <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->menu_status==1 ? "checked": ""}}>

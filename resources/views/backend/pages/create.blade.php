@@ -16,7 +16,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('backend.home')}}">Anasayfa</a></li>
-                                    <li class="breadcrumb-item"><a href="{{route('sayfas.index')}}">Sayfa</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('pages.index')}}">Sayfa</a></li>
                                     <li class="breadcrumb-item"> Sayfa Ekle</li>
                                 </ol>
                             </div>
@@ -39,38 +39,39 @@
                                             @endif
                                             <div class="card-body">
                                                 <div class="horizontal-form">
-                                                    <form action="{{route('sayfas.store')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                                    <form action="{{route('pages.store')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-sm-8">
-                                                                    <label class="text-dark"><b>Başlık</b></label>
-                                                                    <input type="text" name="sayfa_title" value="" class="form-control" placeholder="Lütfen sayfa başlığı giriniz.">
+                                                                <div class="col-sm-6">
+                                                                    <label class="text-dark"><b>Sayfa Adı</b></label>
+                                                                    <input type="text" name="page_title" value="" class="form-control" placeholder="Lütfen sayfa adı giriniz.">
                                                                 </div>
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-2">
                                                                 <label class="text-dark"><b>Görsel</b></label>
-                                                                <input type="file" name="sayfa_imagepath" value="" class="form-control">
+                                                                <input type="file" name="page_imagepath" value="" class="form-control">
                                                             </div>
 
-                                                            </div>
-                                                            <div class="row">
-                                                            <div class="col-sm-8">
-                                                                <label class="text-dark"><b>Seo Link</b></label>
-                                                                <input type="text" name="sayfa_slug" value="" class="form-control" placeholder="Lütfen sayfa başlığı giriniz.">
-                                                            </div>
+
                                                             <div class="col-sm-4">
-                                                                <label class="text-dark"><b>Durum</b></label>
-                                                                <select name="sayfa_status" class="form-control">
-                                                                    <option value="0">Pasif</option>
-                                                                    <option value="1">Aktif</option>
-                                                                </select>
+                                                                <label class="text-dark"><b>Seo Link</b></label>
+                                                                <input type="text" name="page_slug" value="" class="form-control" placeholder="Lütfen sayfa linki giriniz.">
                                                             </div>
+
                                                             </div>
                                                             <div class="col-sm-12">
-                                                                <label class="text-dark"><b>Sayfa Detayı</b></label>
+                                                                <div class="form-group">
+                                                                <label class="text-dark mt-2"><b>Başlık 1</b></label>
+                                                                <input type="text" name="page_title1" value="" class="form-control  " placeholder="Lütfen birinci başlığı giriniz.">
+                                                                <label class="text-dark mt-2"><b>Başlık 2</b></label>
 
-                                                                <textarea  id="editor"  name="sayfa_description" placeholder="Lütfen sayfa başlığı giriniz." class="form-control"></textarea>
+                                                                <input type="text" name="page_title2" value="" class="form-control" placeholder="Lütfen ikinci başlığı giriniz.">
+
+                                                                </div>
+                                                                <label clas s="text-dark mt-3"><b>Sayfa Detayı</b></label>
+                                                                <textarea  id="editor"  name="page_description" placeholder="Lütfen sayfa başlığı giriniz." class="form-control"></textarea>
                                                             </div>
+
                                                         </div>
                                                         <div  class="box-footer">
                                                             <div class="col-md-6">
