@@ -142,7 +142,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: '/categories/switch/' + itemId,
+                                        url: 'categories/switch/' + itemId,
                                         data: {sts: switchStatus}
                                     });
                                 });

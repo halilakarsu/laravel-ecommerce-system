@@ -18,21 +18,28 @@ use App\Http\Controllers\Backend\CustomersController;
 use App\Http\Controllers\Backend\VideosController;
 use App\Http\Controllers\Backend\WishlistController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\AdminHomeController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Backend\SocialController;
+Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 
-use App\Http\Controllers\Backend\HomeController;
-Route::get('/',[HomeController::class,'index'])->name('backend.home');
-Route::prefix('settings')->group(function(){
+Route::get('/admin',[AdminHomeController::class,'index'])->name('backend.home');
+Route::prefix('admin/settings')->group(function(){
 Route::get('',[SettingsController::class,'index'])->name('settings.home');
 Route::get('edit/{id}',[SettingsController::class,'edit'])->name('settings.edit');
 Route::post('update/{id}',[SettingsController::class,'update'])->name('settings.update');
 });
 //resource kullanarak otomatik crud yöntemlerinden faydalandık.
-Route::resource('products', ProductsController::class);
-Route::post('products/sortable',[ProductsController::class,'sortable'])->name('products.sortable');
-Route::post('products/switch/{id}',[ProductsController::class,'switch']);
-Route::get('products/galery/{id}',[ProductsController::class,'dropzoneShow'])->name('products.dropzoneShow');
-Route::post('product/dropzone',[ProductsController::class,'dropzone'])->name('products.dropzone');
-Route::get('product/dropzoneDelete/{id}',[ProductsController::class,'dropzoneDelete'])->name('products.dropzoneDelete');
+Route::prefix('admin/')->group(function() {
+    Route::resource('/products', ProductsController::class);
+    Route::prefix('products/')->group(function() {
+    Route::post('sortable', [ProductsController::class, 'sortable'])->name('products.sortable');
+    Route::post('switch/{id}', [ProductsController::class, 'switch']);
+    Route::get('galery/{id}', [ProductsController::class, 'dropzoneShow'])->name('products.dropzoneShow');
+    Route::post('dropzone', [ProductsController::class, 'dropzone'])->name('products.dropzone');
+    Route::get('dropzoneDelete/{id}', [ProductsController::class, 'dropzoneDelete'])->name('products.dropzoneDelete');
+    });
+});
 $controllers = [
     'blogs' => BlogsController::class,
     'sliders' => SlidersController::class,
@@ -50,11 +57,12 @@ $controllers = [
     'orders' => OrdersController::class,
     'menus' => MenuController::class,
     'messages' => MessagesController::class,
+    'socials' => SocialController::class,
 ];
 
     foreach ($controllers as $prefix => $controller) {
-        Route::resource($prefix, $controller);
-        Route::post("$prefix/sortable", [$controller, 'sortable'])->name("$prefix.sortable");
-        Route::post("$prefix/switch/{id}", [$controller, 'switch']);
+        Route::resource("admin/$prefix", $controller);
+        Route::post("admin/$prefix/sortable", [$controller, 'sortable'])->name("$prefix.sortable");
+        Route::post("admin/$prefix/switch/{id}", [$controller, 'switch']);
     }
 

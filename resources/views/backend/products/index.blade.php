@@ -104,7 +104,6 @@
                                     },
                                     dom:'frtp',
                                     language: {
-
                                         "sSearch": "Ara:",
                                         "sZeroRecords": "Eşleşen kayıt bulunamadı",
                                         "oPaginate": {
@@ -114,7 +113,6 @@
                                             "sPrevious": "Önceki"
                                         }
                                     },
-
                                 });
                                 $(document).on('click', '.btn-danger', function() {
                                     var productId = $(this).data('id'); // Tıklanan butondan product ID'yi al
@@ -145,7 +143,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: '/products/switch/' + itemId,
+                                        url: 'products/switch/' + itemId,
                                         data: {sts: switchStatus}
                                     });
                                 });
