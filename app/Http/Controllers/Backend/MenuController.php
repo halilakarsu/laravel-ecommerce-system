@@ -7,12 +7,14 @@ use Illuminate\Support\Str;
 class MenuController extends Controller
 {
     public function index()
-    { $menus=Menu::all()->sortBy('menu_sort');
-        return view('backend.menus.index',compact('menus'));
+    {
+        $menuUst= Menu::where('menu_ust', 0)->get()->sortBy('menu_sort');
+        $menuAlt = Menu::where('menu_ust', '>', 0)->get()->sortBy('menu_sort');
+        return view('backend.menus.index',compact('menuUst','menuAlt'));
     }
     public function create()
-    {
-        return view('backend.menus.create');
+    {    $menus=Menu::all()->sortBy('menu_sort');
+        return view('backend.menus.create',compact('menus'));
     }
     public function sortable()
     {
@@ -28,6 +30,7 @@ class MenuController extends Controller
     {
                $request->validate([
                 'menu_title'=>'required',
+                  'menu_ust'=>'required',
                 'menu_slug'=>'required',
                      ]);
             if($request->menu_slug>3){
@@ -37,6 +40,7 @@ class MenuController extends Controller
             }
             $menusStore=new Menu();
             $menusStore->menu_title=$request->menu_title;
+            $menusStore->menu_ust=$request->menu_ust;
            $menusStore->menu_slug=$menuSlug;
             $menusStore->save();
         if($menusStore) {
@@ -57,10 +61,12 @@ class MenuController extends Controller
         $menuSlug=Str::slug($request->menu_title);
     }           $request->validate([
                 'menu_title'=>'required',
+                'menu_ust'=>'required',
                 'menu_slug'=>'required',
                   ]);
                 $menusUpdate=Menu::where('id',$id)->update([
                 'menu_title'=>$request->menu_title,
+                'menu_ust'=>$request->menu_ust,
                 'menu_slug'=>$menuSlug
                ]);
 

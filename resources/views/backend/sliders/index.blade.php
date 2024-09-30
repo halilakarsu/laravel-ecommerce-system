@@ -55,6 +55,7 @@
                                             </thead>
                                             <tbody id="sortable">
                                             @foreach($sliders as $key)
+                                                   @if($key->menu_ust==0)
                                                 <tr id="item-{{$key->id}}">
                                                     <td class="sortable" ><img width="70px" src="/backend/images/sliders/{{$key->slider_imagepath}}" alt="{{$key->slider_slug}}"></td>
                                                     <td>{{$key->slider_big_title}}</td>
@@ -71,6 +72,9 @@
                                                         <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
                                                     </td>
                                                 </tr>
+                                              @elseif($key->id==)
+
+                                              @endif
                                             @endforeach
                                             <!-- Daha fazla veri buraya eklenebilir -->
 
@@ -144,7 +148,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: '/sliders/switch/' + itemId,
+                                        url: 'sliders/switch/' + itemId,
                                         data: {sts: switchStatus}
                                     });
                                 });

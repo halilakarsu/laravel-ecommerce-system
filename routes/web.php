@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminHomeController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\SocialController;
-Route::get('/',[HomeController::class,'index'])->name('frontend.home');
+Route::get('//',[HomeController::class,'index'])->name('frontend.home');
 
 Route::get('/admin',[AdminHomeController::class,'index'])->name('backend.home');
 Route::prefix('admin/settings')->group(function(){

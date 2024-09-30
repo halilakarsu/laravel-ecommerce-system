@@ -7,7 +7,7 @@
                     <div class="col-lg-6 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>Yeni Menü Ekleme<br></h1>
+                                <h1>Yeni Menü Ekleme<br> <small>Eğer </small></h1>
                             </div>
                         </div>
                     </div>
@@ -52,8 +52,14 @@
                                                                 <input type="text" name="menu_slug" value="" class="form-control" placeholder="Lütfen menü linki giriniz.">
                                                             </div>
                                                                 <div class="col-sm-4">
-                                                                    <label class="text-dark"><b>Sıra</b></label>
-                                                                    <input type="text" name="menu_sort" value="" class="form-control" placeholder="Lütfen menü sırası giriniz.">
+                                                                    <label class="text-dark"><b>Üst Menüsü</b></label>
+                                                                    <select name="menu_ust" class="form-control">
+                                                                        <label class="text-dark"><b>Üst Menu</b></label>
+                                                                        <option value="0">Üst Menü</option>
+                                                                        @foreach($menus as $menu)
+                                                                          <option value="{{$menu->id}}">{{$menu->menu_title}}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                            </div>

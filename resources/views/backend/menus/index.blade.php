@@ -47,16 +47,14 @@
                                             <thead>
                                             <tr>
                                                 <th>Menü Adı</th>
-                                                <th>Menü Sıra</th>
                                                 <th >Durum</th>
                                                 <th class="text-right">İşlemler</th>
                                             </tr>
                                             </thead>
                                             <tbody id="sortable">
-                                            @foreach($menus as $key)
-                                            <tr id="item-{{$key->id}}">
+                                            @foreach($menuUst as $key)
+                                                    <tr id="item-{{$key->id}}">
                                                 <td class="sortable" >{{$key->menu_title}}</td>
-                                                <td>{{$key->menu_sort}}</td>
                                                 <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
                                                                    <label class="custom-switch">
                                                                 <input data-id="{{$key->id}}" type="checkbox" class="custom-switch-input" {{$key->menu_status==1 ? "checked": ""}}>
@@ -69,15 +67,28 @@
                                                     <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
                                                   </td>
                                             </tr>
-                                            @endforeach
-                                            <!-- Daha fazla veri buraya eklenebilir -->
+                                                    @foreach($menuAlt as $row)
+                                                        @if($row->menu_ust==$key->id)
+                                                            <tr id="item-{{$row->id}}">
+                                                                <td class="sortable" >{{$row->menu_title}}</td>
+                                                                <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
+                                                                        <label class="custom-switch">
+                                                                            <input data-id="{{$row->id}}" type="checkbox" class="custom-switch-input" {{$row->menu_status==1 ? "checked": ""}}>
+                                                                            <span class="custom-switch-slider"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a title="Düzenle" class="button btn-success btn mini" href="{{route('menus.edit',$row->id)}}">  <i class="fa fa-edit"></i></a>
+                                                                    <a title="Sil" data-id="{{$row->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
 
+                                                    @endforeach
+                                           @endforeach
 
-
-
-
-
-                                            </tbody>
+                                          </tbody>
                                         </table>
                                     </div>
 
@@ -90,10 +101,7 @@
                     <!-- /# row -->
  @endsection
  @section('js')
-
  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
-
 <script>
 
  $('.dataTables_filter input').attr('placeholder', 'Arama yapın...');
@@ -129,7 +137,7 @@
              function () {
                  $.ajax({
                      type:"DELETE",
-                     url: '/menus/' + menuId,  // DELETE isteği için URL
+                     url: 'menus/' + menuId,  // DELETE isteği için URL
                      success:function(response){
                          if(response){
                              toastr.success('Silme işlemi başarılı', 'Başarılı');
@@ -151,19 +159,17 @@
 
          $.ajax({
              type: "POST",
-             url: '/menus/switch/' + itemId,
+             url: 'menus/switch/' + itemId,
              data: {sts: switchStatus}
          });
      });
 
      });
  $(document).ready(function(){
-
-
      $('#sortable').sortable({
          revert:true,
          handle:".sortable",
-         stop:function (event,ui){
+           stop:function (event,ui){
              var data= $(this).sortable('serialize');
                $.ajax({
                  type:"POST",
@@ -180,6 +186,7 @@
          }
      });
      $('#sortable').disableSelection();
+     $('#sortable').disable();
  });
 
 </script>
