@@ -62,7 +62,7 @@
                                                                      <select name="menu_ust" class="form-control">
                                                                         <option value="0">Üst Menü</option>
                                                                          @foreach($menus as $menu)
-                                                                             <option {{$menusEdit->id==$menu->id ? "selected" : ""}} value="{{$menu->id}}">{{$menu->menu_title}}</option>
+                                                                             <option {{$menusEdit->menu_ust==$menu->id ? "selected" : ""}} value="{{$menu->id}}">{{$menu->menu_title}}</option>
                                                                          @endforeach
                                                                      </select>
                                                                  </div>

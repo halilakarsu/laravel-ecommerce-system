@@ -16,8 +16,5 @@ class HomeController extends Controller
          $menuAlt=Menu::where('menu_ust','>',0)->get()->sortBy('menu_sort');
          return view('frontend.home.index',compact('sliders','menuUst','menuAlt'));
     }
-    public function settings(){
-        $settings=Settings::all();
-       return view('frontend.home.index',compact('settings'));
-    }
+
 }
