@@ -69,7 +69,7 @@
             @foreach($menuUst as $menu)
                 @if($menu->menu_status==1)
                     <div class="nav-item dropdown">
-                    <a href="#"  @if($menuAlt->contains('menu_ust', $menu->id))  class="nav-link dropdown-toggle"
+                    <a href="{{$menu->menu_slug}}"  @if($menuAlt->contains('menu_ust', $menu->id))  class="nav-link dropdown-toggle"
                        data-bs-toggle="dropdown" @else class="nav-link" @endif>{{$menu->menu_title}}</a>
                     <div class="dropdown-menu m-0">
                         @foreach($menuAlt as $alt)

@@ -52,10 +52,9 @@
                                                                 <input type="text" name="menu_slug" value="" class="form-control" placeholder="Lütfen menü linki giriniz.">
                                                             </div>
                                                                 <div class="col-sm-4">
-                                                                    <label class="text-dark"><b>Üst Menüsü</b></label>
+
                                                                     <select name="menu_ust" class="form-control">
-                                                                        <label class="text-dark"><b>Üst Menu</b></label>
-                                                                        <option value="0">Üst Menü</option>
+
                                                                         @foreach($menus as $menu)
                                                                           <option value="{{$menu->id}}">{{$menu->menu_title}}</option>
                                                                         @endforeach

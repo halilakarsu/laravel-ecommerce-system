@@ -8,9 +8,8 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menuUst= Menu::where('menu_ust', 0)->get()->sortBy('menu_sort');
-        $menuAlt = Menu::where('menu_ust', '>', 0)->get()->sortBy('menu_sort');
-        return view('backend.menus.index',compact('menuUst','menuAlt'));
+        $menus= Menu::all()->sortBy('menu_sort');
+        return view('backend.menus.index',compact('menus'));
     }
     public function create()
     {    $menus=Menu::all()->sortBy('menu_sort');
@@ -52,7 +51,8 @@ class MenuController extends Controller
     public function edit($id)
     {
         $menusEdit=Menu::where('id',$id)->first();
-        return view('backend.menus.edit',compact('menusEdit'));
+        $menus=Menu::all()->sortBy('menu_sort');
+        return view('backend.menus.edit',compact('menusEdit','menus'));
     }
     public function update(Request $request, $id)
     {     if($request->menu_slug>3){

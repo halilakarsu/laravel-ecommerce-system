@@ -58,8 +58,13 @@
                                                                  <input  type="text" name="menu_slug" value="{{$menusEdit->menu_slug}}" class="form-control"  >
                                                              </div>
                                                                  <div class="col-sm-4">
-                                                                     <label class="text-dark"><b>Sıra</b></label>
-                                                                     <input type="number" name="menu_sort"  class="form-control" value="{{$menusEdit->menu_sort}}">
+                                                                     <label class="text-dark"><b>Üst Menüsü</b></label>
+                                                                     <select name="menu_ust" class="form-control">
+                                                                        <option value="0">Üst Menü</option>
+                                                                         @foreach($menus as $menu)
+                                                                             <option {{$menusEdit->id==$menu->id ? "selected" : ""}} value="{{$menu->id}}">{{$menu->menu_title}}</option>
+                                                                         @endforeach
+                                                                     </select>
                                                                  </div>
                                                              </div>
                                                             </div>

@@ -52,7 +52,7 @@
                                             </tr>
                                             </thead>
                                             <tbody id="sortable">
-                                            @foreach($menuUst as $key)
+                                            @foreach($menus as $key)
                                                     <tr id="item-{{$key->id}}">
                                                 <td class="sortable" >{{$key->menu_title}}</td>
                                                 <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
@@ -67,25 +67,7 @@
                                                     <a title="Sil" data-id="{{$key->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
                                                   </td>
                                             </tr>
-                                                    @foreach($menuAlt as $row)
-                                                        @if($row->menu_ust==$key->id)
-                                                            <tr id="item-{{$row->id}}">
-                                                                <td class="sortable" >{{$row->menu_title}}</td>
-                                                                <td>  <div style="margin-left:-40px;margin-top:10px" class="form-check form-switch text-lg-left ">
-                                                                        <label class="custom-switch">
-                                                                            <input data-id="{{$row->id}}" type="checkbox" class="custom-switch-input" {{$row->menu_status==1 ? "checked": ""}}>
-                                                                            <span class="custom-switch-slider"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a title="Düzenle" class="button btn-success btn mini" href="{{route('menus.edit',$row->id)}}">  <i class="fa fa-edit"></i></a>
-                                                                    <a title="Sil" data-id="{{$row->id}}" class="btn-danger btn mini text-light" ><i  class="fa fa-trash-o"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
 
-                                                    @endforeach
                                            @endforeach
 
                                           </tbody>

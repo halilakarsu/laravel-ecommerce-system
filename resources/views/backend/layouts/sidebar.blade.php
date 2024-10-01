@@ -43,6 +43,7 @@
                         <li><a href="{{route('members.index')}}">Üyeler</a></li>
                        </ul>
                 </li>
+                <li><a href="{{route('frontend.home')}}"><i class="ti-camera"></i> Siteyi Gör</a></li>
                 <li><a><i class="ti-close"></i> Çıkış</a></li>
             </ul>
         </div>
