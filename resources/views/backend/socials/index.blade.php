@@ -127,7 +127,7 @@
              function () {
                  $.ajax({
                      type:"DELETE",
-                     url: '/socials/' + questionId,  // DELETE isteği için URL
+                     url: 'socials/' + questionId,  // DELETE isteği için URL
                      success:function(response){
                          if(response){
                              toastr.success('Silme işlemi başarılı', 'Başarılı');
@@ -149,7 +149,7 @@
 
          $.ajax({
              type: "POST",
-             url: '/socials/switch/' + itemId,
+             url: 'socials/switch/' + itemId,
              data: {sts: switchStatus}
          });
      });

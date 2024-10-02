@@ -5,59 +5,50 @@
             <div class="col-lg-8 col-md-6">
                 <div class="row gx-5">
                     <div class="col-lg-4 col-md-12 pt-5 mb-5">
-                        <h4 class="text-white mb-4">Get In Touch</h4>
+                        <h4 class="text-white mb-4">Bize Ulaşın</h4>
                         <div class="d-flex mb-2">
                             <i class="bi bi-geo-alt text-white me-2"></i>
-                            <p class="text-white mb-0">123 Street, New York, USA</p>
+                            <p class="text-white mb-0">{{$adress}}</p>
                         </div>
                         <div class="d-flex mb-2">
                             <i class="bi bi-envelope-open text-white me-2"></i>
-                            <p class="text-white mb-0">info@example.com</p>
+                            <p class="text-white mb-0">{{$mail}}</p>
                         </div>
                         <div class="d-flex mb-2">
                             <i class="bi bi-telephone text-white me-2"></i>
-                            <p class="text-white mb-0">+012 345 67890</p>
+                            <p class="text-white mb-0">{{$phone}}</p>
                         </div>
                         <div class="d-flex mt-4">
-                            <a class="btn btn-secondary btn-square rounded-circle me-2" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-secondary btn-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-secondary btn-square rounded-circle me-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-secondary btn-square rounded-circle" href="#"><i class="fab fa-instagram"></i></a>
+                            @foreach($social as $row)
+                                <a class="btn btn-secondary btn-square rounded-circle me-2" href="{{$row->social_link}}"> {!! $row->social_icon !!}</a>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
-                        <h4 class="text-white mb-4">Quick Links</h4>
+                        <h4 class="text-white mb-4">Ürünlerimiz</h4>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Home</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>About Us</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Our Services</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Meet The Team</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Latest Blog</a>
-                            <a class="text-white" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Contact Us</a>
-                        </div>
+                            </div>
                     </div>
                     <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
-                        <h4 class="text-white mb-4">Popular Links</h4>
+                        <h4 class="text-white mb-4">Kurumsal</h4>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Home</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>About Us</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Our Services</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Meet The Team</a>
-                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Latest Blog</a>
-                            <a class="text-white" href="#"><i class="bi bi-arrow-right text-white me-2"></i>Contact Us</a>
+                            @foreach($menuUst as $row)
+                            <a class="text-white mb-2" href="#"><i class="bi bi-arrow-right text-white me-2"></i>{{$row->menu_title}}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mt-lg-n5">
                 <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-secondary p-5">
-                    <h4 class="text-white">Newsletter</h4>
-                    <h6 class="text-white">Subscribe Our Newsletter</h6>
-                    <p>Amet justo diam dolor rebum lorem sit stet sea justo kasd</p>
+                    <h4 class="text-white">Abone Ol</h4>
+                    <h6 class="text-white">Abone olmak çok kolay!</h6>
+                    <p>Sadece e-posta adresiniz ile abone olabilirsiniz.</p>
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control border-white p-3" placeholder="Your Email">
-                            <button class="btn btn-primary">Sign Up</button>
+                            <input type="text" class="form-control border-white p-3" placeholder="E-mail adresiniz">
+                            <button class="btn btn-primary">Üye ol</button>
                         </div>
                     </form>
                 </div>
@@ -67,8 +58,8 @@
 </div>
 <div class="container-fluid bg-dark text-white py-4">
     <div class="container text-center">
-        <p class="mb-0">&copy; <a class="text-secondary fw-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed by <a class="text-secondary fw-bold" href="https://htmlcodex.com">HTML Codex</a></p>
-        <br>Distributed By: <a class="text-secondary fw-bold" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+        <p class="mb-0">&copy; <a class="text-secondary fw-bold" href="https://halilakarsu.com"></a>Tüm hakları saklıdır. <a class="text-secondary fw-bold" href="https://halilakarsu.com">Halil Akarsu tasarlanmıştır.</a></p>
+        <br>Projeleriniz için lütfen bizimle iletişime geçiniz: <a class="text-secondary fw-bold" href="https://halilakarsu.com" target="_blank">-></a>
     </div>
 </div>
 <!-- Footer End -->
